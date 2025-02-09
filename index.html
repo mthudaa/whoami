@@ -3,20 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="styles.css"> 
+    <title>Your Name - Resume</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Welcome to My Portfolio</h1>
+        <h1>Your Name</h1>
+        <p>Professional Title</p>
     </header>
-    <section>
+    <section id="about">
         <h2>About Me</h2>
-        <p>Introduce yourself here.</p>
+        <p>Hello! I'm a professional with a passion for [Your Field]. With [X] years of experience, I have honed my skills in [Skill 1], [Skill 2], and [Skill 3]. I am excited to bring my expertise to new challenges and opportunities.</p>
     </section>
-    <section>
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul>
+            <li><strong>Skill 1:</strong> Description of Skill 1.</li>
+            <li><strong>Skill 2:</strong> Description of Skill 2.</li>
+            <li><strong>Skill 3:</strong> Description of Skill 3.</li>
+        </ul>
+    </section>
+    <section id="work-experience">
+        <h2>Work Experience</h2>
+        <ul class="timeline">
+            <li>
+                <div class="timeline-content">
+                    <h3>Job Title 1</h3>
+                    <p><strong>Company Name</strong> - Year</p>
+                    <p>Description of your role and responsibilities.</p>
+                </div>
+            </li>
+            <li>
+                <div class="timeline-content">
+                    <h3>Job Title 2</h3>
+                    <p><strong>Company Name</strong> - Year</p>
+                    <p>Description of your role and responsibilities.</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section id="education">
+        <h2>Education</h2>
+        <ul class="timeline">
+            <li>
+                <div class="timeline-content">
+                    <h3>Degree 1</h3>
+                    <p><strong>Institution Name</strong> - Year</p>
+                </div>
+            </li>
+            <li>
+                <div class="timeline-content">
+                    <h3>Degree 2</h3>
+                    <p><strong>Institution Name</strong> - Year</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section id="projects">
         <h2>Projects</h2>
-        <p>Showcase your projects here.</p>
+        <ul>
+            <li>
+                <h3>Project Name 1</h3>
+                <p>Description of the project.</p>
+                <a href="#">View Project</a>
+            </li>
+            <li>
+                <h3>Project Name 2</h3>
+                <p>Description of the project.</p>
+                <a href="#">View Project</a>
+            </li>
+        </ul>
+    </section>
+    <section id="contact">
+        <h2>Contact</h2>
+        <form class="contact-form">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
     </section>
 </body>
 </html>
