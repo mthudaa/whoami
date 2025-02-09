@@ -3,85 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Resume</title>
+    <title>Your Name - Personal Page</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Your Name</h1>
-        <p>Professional Title</p>
+        <div class="container">
+            <h1>Your Name</h1>
+            <p>Professional Title</p>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#work-experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <section id="about">
-        <h2>About Me</h2>
-        <p>Hello! I'm a professional with a passion for [Your Field]. With [X] years of experience, I have honed my skills in [Skill 1], [Skill 2], and [Skill 3]. I am excited to bring my expertise to new challenges and opportunities.</p>
+        <div class="container">
+            <h2>About Me</h2>
+            <p>Hello! I'm a professional with a passion for [Your Field]. With [X] years of experience, I have honed my skills in [Skill 1], [Skill 2], and [Skill 3]. I am excited to bring my expertise to new challenges and opportunities.</p>
+        </div>
     </section>
     <section id="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li><strong>Skill 1:</strong> Description of Skill 1.</li>
-            <li><strong>Skill 2:</strong> Description of Skill 2.</li>
-            <li><strong>Skill 3:</strong> Description of Skill 3.</li>
-        </ul>
+        <div class="container">
+            <h2>Skills</h2>
+            <ul>
+                <li><strong>Skill 1:</strong> Description of Skill 1.</li>
+                <li><strong>Skill 2:</strong> Description of Skill 2.</li>
+                <li><strong>Skill 3:</strong> Description of Skill 3.</li>
+            </ul>
+        </div>
     </section>
     <section id="work-experience">
-        <h2>Work Experience</h2>
-        <ul class="timeline">
-            <li>
-                <div class="timeline-content">
-                    <h3>Job Title 1</h3>
-                    <p><strong>Company Name</strong> - Year</p>
-                    <p>Description of your role and responsibilities.</p>
-                </div>
-            </li>
-            <li>
-                <div class="timeline-content">
-                    <h3>Job Title 2</h3>
-                    <p><strong>Company Name</strong> - Year</p>
-                    <p>Description of your role and responsibilities.</p>
-                </div>
-            </li>
-        </ul>
+        <div class="container">
+            <h2>Work Experience</h2>
+            <ul class="timeline">
+                <li>
+                    <div class="timeline-content">
+                        <h3>Job Title 1</h3>
+                        <p><strong>Company Name</strong> - Year</p>
+                        <p>Description of your role and responsibilities.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="timeline-content">
+                        <h3>Job Title 2</h3>
+                        <p><strong>Company Name</strong> - Year</p>
+                        <p>Description of your role and responsibilities.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </section>
     <section id="education">
-        <h2>Education</h2>
-        <ul class="timeline">
-            <li>
-                <div class="timeline-content">
-                    <h3>Degree 1</h3>
-                    <p><strong>Institution Name</strong> - Year</p>
-                </div>
-            </li>
-            <li>
-                <div class="timeline-content">
-                    <h3>Degree 2</h3>
-                    <p><strong>Institution Name</strong> - Year</p>
-                </div>
-            </li>
-        </ul>
+        <div class="container">
+            <h2>Education</h2>
+            <ul class="timeline">
+                <li>
+                    <div class="timeline-content">
+                        <h3>Degree 1</h3>
+                        <p><strong>Institution Name</strong> - Year</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="timeline-content">
+                        <h3>Degree 2</h3>
+                        <p><strong>Institution Name</strong> - Year</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </section>
     <section id="projects">
-        <h2>Projects</h2>
-        <ul>
-            <li>
-                <h3>Project Name 1</h3>
-                <p>Description of the project.</p>
-                <a href="#">View Project</a>
-            </li>
-            <li>
-                <h3>Project Name 2</h3>
-                <p>Description of the project.</p>
-                <a href="#">View Project</a>
-            </li>
-        </ul>
+        <div class="container">
+            <h2>Projects</h2>
+            <ul>
+                <li>
+                    <h3>Project Name 1</h3>
+                    <p>Description of the project.</p>
+                    <a href="#">View Project</a>
+                </li>
+                <li>
+                    <h3>Project Name 2</h3>
+                    <p>Description of the project.</p>
+                    <a href="#">View Project</a>
+                </li>
+            </ul>
+        </div>
     </section>
     <section id="contact">
-        <h2>Contact</h2>
-        <form class="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
+        <div class="container">
+            <h2>Contact</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
     </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Your Name. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
