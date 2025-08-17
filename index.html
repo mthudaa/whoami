@@ -1,9 +1,9 @@
-<p>&copy; 2024 M Taufiqul Huda. Template website resume akademik untuk mahasiswa dan peneliti.</p><!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M Taufiqul Huda - Resume Akademik</title>
+    <title>M Taufiqul Huda - Academic Resume</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -113,13 +113,20 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #3498db, #9b59b6);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: white;
             flex-shrink: 0;
+            overflow: hidden;
+            border: 4px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .profile-info h1 {
@@ -229,7 +236,7 @@
 
         .course-header {
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
             flex-wrap: wrap;
@@ -277,6 +284,12 @@
         .materials-list a:hover {
             color: #2980b9;
             text-decoration: underline;
+        }
+
+        /* Profile image styles */
+        .profile-image:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
         }
 
         /* Publications List */
@@ -376,17 +389,17 @@
             <div class="header-content">
                 <div class="profile">
                     <div class="profile-image">
-                        <i class="fas fa-user-graduate"></i>
+                        <img src="Huda-formal.png" alt="M Taufiqul Huda">
                     </div>
                     <div class="profile-info">
                         <h1>M Taufiqul Huda</h1>
                         <div class="title">Electrical Engineering Student & Research Assistant</div>
                         <div class="contact-info">
-                            <span><i class="fas fa-envelope"></i> muhammadhuda1025@gmail.com</span>
-                            <span><i class="fas fa-phone"></i> +62 812-3540-1201</span>
+                            <span><i class="fas fa-envelope"></i> <a href="mailto:muhammadhuda1025@gmail.com" style="color: inherit; text-decoration: none;">muhammadhuda1025@gmail.com</a></span>
+                            <span><i class="fas fa-phone"></i> <a href="tel:+6281235401201" style="color: inherit; text-decoration: none;">+62 812-3540-1201</a></span>
                             <span><i class="fas fa-map-marker-alt"></i> Karang Menur II Street, No. 22, Surabaya</span>
-                            <span><i class="fab fa-linkedin"></i> linkedin.com/in/mthudaa/</span>
-                            <span><i class="fab fa-github"></i> github.com/mthudaa</span>
+                            <span><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/mthudaa/" target="_blank" style="color: inherit; text-decoration: none;">linkedin.com/in/mthudaa/</a></span>
+                            <span><i class="fab fa-github"></i> <a href="https://github.com/mthudaa" target="_blank" style="color: inherit; text-decoration: none;">github.com/mthudaa</a></span>
                         </div>
                     </div>
                 </div>
@@ -398,16 +411,16 @@
     <nav>
         <div class="container">
             <div class="nav-container">
-                <div class="logo">Resume Akademik</div>
+                <div class="logo">Academic Resume</div>
                 <button class="mobile-toggle" onclick="toggleNav()">
                     <i class="fas fa-bars"></i>
                 </button>
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="#" onclick="showPage('home')">Beranda</a></li>
-                    <li><a href="#" onclick="showPage('research')">Penelitian</a></li>
-                    <li><a href="#" onclick="showPage('publications')">Publikasi</a></li>
-                    <li><a href="#" onclick="showPage('courses')">Materi Kuliah</a></li>
-                    <li><a href="#" onclick="showPage('contact')">Kontak</a></li>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('research')">Research</a></li>
+                    <li><a href="#" onclick="showPage('publications')">Achievements</a></li>
+                    <li><a href="#" onclick="showPage('courses')">Resources</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -419,12 +432,12 @@
             <!-- Home Page -->
             <div id="home" class="page active">
                 <div class="section">
-                    <h2><i class="fas fa-user"></i> Tentang Saya</h2>
-                    <p>Saya adalah mahasiswa program sarjana teknik elektro di Institut Teknologi Sepuluh Nopember. Selain studi, saya telah bekerja sebagai asisten laboratorium di Laboratorium Mikroelektronika dan Sistem Tertanam ITS. Saya memiliki passion yang kuat dalam penelitian integrated circuit mixed-signal. Saya juga pernah berpartisipasi dalam Taiwan Education and Experience Program (TEEP) di National Taiwan University of Science and Technology, dengan fokus pada Analog IC Design, khususnya time-domain ADCs.</p>
+                    <h2><i class="fas fa-user"></i> About Me</h2>
+                    <p>I am a bachelor's program student in electrical engineering at Institut Teknologi Sepuluh Nopember. In addition to my studies, I have worked as a laboratory assistant at the Microelectronics and Embedded Systems Laboratory at ITS. I have developed a strong passion for mixed-signal integrated circuit research. Previously, I participated in the Taiwan Education and Experience Program (TEEP) at the National Taiwan University of Science and Technology, focusing on Analog IC Design, particularly time-domain ADCs.</p>
                 </div>
 
                 <div class="section">
-                    <h2><i class="fas fa-graduation-cap"></i> Pendidikan</h2>
+                    <h2><i class="fas fa-graduation-cap"></i> Education</h2>
                     <div class="card-grid">
                         <div class="card">
                             <h3>Master Electronic and Computer Engineering</h3>
@@ -432,30 +445,30 @@
                             <p>Member of Analog IC Lab (AIC Lab) under supervisor Prof. Poki Chen</p>
                         </div>
                         <div class="card">
-                            <h3>S1 Teknik Elektro</h3>
+                            <h3>Bachelor Electrical Engineering</h3>
                             <div class="meta">Institut Teknologi Sepuluh Nopember • Jun 2021 - Aug 2025</div>
-                            <p>IPK: 3.77/4.00. Berpartisipasi dalam penelitian biomedical SoC ITS menggunakan teknologi 130 nm untuk pengembangan biomedical SAR ADC dengan Time Domain Comparator.</p>
+                            <p>GPA: 3.77/4.00. Participate in ITS biomedical SoC research using 130 nm technology for developing biomedical SAR ADC design with Time Domain Comparator.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h2><i class="fas fa-briefcase"></i> Pengalaman Kerja</h2>
+                    <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
                     <div class="card-grid">
                         <div class="card">
                             <h3>TEEP Intern</h3>
                             <div class="meta">National Taiwan University of Science and Technology • Jul 2024 - Dec 2024</div>
-                            <p>Program magang internasional dari Kementerian Pendidikan Taiwan. Fokus pada Analog Mixed Signal IC design, khususnya Time Domain ADC menggunakan teknologi 180 nm.</p>
+                            <p>International internship program from Taiwan Ministry of Education. Focus on Analog Mixed Signal IC design, particularly Time Domain ADC using 180 nm technology.</p>
                         </div>
                         <div class="card">
                             <h3>Laboratory Coordinator</h3>
                             <div class="meta">Microelectronics and Embedded Systems Laboratory ITS • Jul 2023 - Feb 2025</div>
-                            <p>Memberikan bantuan kepada mahasiswa dalam praktikum rangkaian listrik, sistem digital, dan rangkaian elektronika untuk 50% mahasiswa Teknik Elektro per semester.</p>
+                            <p>Provide assistance to students in electrical circuit practicum, digital systems practicum, and electronics circuit practicum for 50% of Electrical Engineering students per semester.</p>
                         </div>
                         <div class="card">
                             <h3>Research Assistant</h3>
                             <div class="meta">Semiconductor Flagship Research Program ITS • Sep 2024 - Present</div>
-                            <p>Fokus pada pengembangan ADC untuk Biomedical MCU. Meningkatkan akurasi SAR-ADC dari 10 bit ke 12 bit dan mengurangi konsumsi daya lebih dari 30%.</p>
+                            <p>Focus on ADC development for Biomedical MCU. Improve SAR-ADC accuracy from 10 bits to 12 bits and reduce power consumption by more than 30%.</p>
                         </div>
                     </div>
                 </div>
@@ -464,38 +477,38 @@
             <!-- Research Page -->
             <div id="research" class="page">
                 <div class="section">
-                    <h2><i class="fas fa-flask"></i> Bidang Penelitian</h2>
+                    <h2><i class="fas fa-flask"></i> Research Areas</h2>
                     <div class="card-grid">
                         <div class="card">
                             <h3>Mixed Signal IC Design</h3>
-                            <p>Fokus pada desain integrated circuit analog-digital untuk aplikasi biomedis</p>
+                            <p>Focus on analog-digital integrated circuit design for biomedical applications</p>
                         </div>
                         <div class="card">
                             <h3>Time Domain ADC</h3>
-                            <p>Penelitian dalam pengembangan Analog-to-Digital Converter dengan pendekatan time domain</p>
+                            <p>Research in developing Analog-to-Digital Converter with time domain approach</p>
                         </div>
                         <div class="card">
                             <h3>Low Power Circuit</h3>
-                            <p>Pengembangan rangkaian dengan konsumsi daya rendah untuk aplikasi portable</p>
+                            <p>Development of low power consumption circuits for portable applications</p>
                         </div>
                         <div class="card">
                             <h3>Biomedical Electronics</h3>
-                            <p>Aplikasi elektronika untuk sistem biomedis dan perangkat kesehatan</p>
+                            <p>Electronics applications for biomedical systems and healthcare devices</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h2><i class="fas fa-project-diagram"></i> Proyek Penelitian Aktif</h2>
+                    <h2><i class="fas fa-project-diagram"></i> Active Research Projects</h2>
                     <div class="card">
-                        <h3>12-bit Time Domain SAR-ADC untuk Biomedical MCU</h3>
+                        <h3>12-bit Time Domain SAR-ADC for Biomedical MCU</h3>
                         <div class="meta">2024-2025 • Semiconductor Flagship Research Program ITS</div>
-                        <p>Pengembangan ADC dengan akurasi 12-bit menggunakan differential input design dan time-domain comparator. Design telah diselesaikan dan dikirim ke Skywater untuk tape-out menggunakan teknologi 130nm.</p>
+                        <p>Development of 12-bit accuracy ADC using differential input design and time-domain comparator. Design has been completed and submitted to Skywater for tape-out using 130nm technology.</p>
                     </div>
                     <div class="card">
                         <h3>10-bit Time Domain SAR-ADC (UNIC-CASS)</h3>
                         <div class="meta">2024-2025 • IEEE Circuits and Systems Society</div>
-                        <p>Satu-satunya tim dari Indonesia yang berhasil melewati fase tape-out. Menyelesaikan desain menggunakan open-source software dan PDK Skywater dengan biaya tape-out gratis 100%.</p>
+                        <p>Only team from Indonesia that successfully passed through the tape-out phase. Completed design using open-source software and Skywater PDK with 100% free tape-out cost.</p>
                     </div>
                 </div>
             </div>
@@ -503,23 +516,23 @@
             <!-- Publications Page -->
             <div id="publications" class="page">
                 <div class="section">
-                    <h2><i class="fas fa-trophy"></i> Prestasi & Penghargaan</h2>
+                    <h2><i class="fas fa-trophy"></i> Awards & Achievements</h2>
                     <div class="publication-item">
                         <div class="pub-title">Silver Medal - PIMNAS 36th 2023 (PKM-KC Prototype Category)</div>
                         <div class="pub-authors">M. Taufiqul Huda (Team Leader)</div>
-                        <div class="pub-journal">Pekan Ilmiah Mahasiswa Nasional, Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi RI</div>
-                        <p style="margin-top: 0.5rem; color: #666;">Project: "Detektor Hemoglobin Non-Invasif dengan Kecerdasan Buatan Tertanam STM32 Untuk Memprediksi Anemia bagi Penderita Systemic Lupus Erythematosus"</p>
+                        <div class="pub-journal">National Student Scientific Week, Ministry of Education, Culture, Research, and Technology Republic of Indonesia</div>
+                        <p style="margin-top: 0.5rem; color: #666;">Project: "Non-Invasive Hemoglobin Detector with Embedded Artificial Intelligence STM32 to Predict Anemia for Patients with Systemic Lupus Erythematosus"</p>
                     </div>
                     <div class="publication-item">
                         <div class="pub-title">Successfully Completed Tape-out Phase - UNIC-CASS 2024</div>
                         <div class="pub-authors">M. Taufiqul Huda & Team</div>
                         <div class="pub-journal">IEEE Circuits and Systems Society</div>
-                        <p style="margin-top: 0.5rem; color: #666;">Satu-satunya delegasi Indonesia yang berhasil menyelesaikan fase tape-out untuk 10-bit Time Domain SAR-ADC</p>
+                        <p style="margin-top: 0.5rem; color: #666;">Only Indonesian delegation that successfully completed the tape-out phase for 10-bit Time Domain SAR-ADC</p>
                     </div>
                 </div>
 
                 <div class="section">
-                    <h2><i class="fas fa-tools"></i> Keahlian Teknis</h2>
+                    <h2><i class="fas fa-tools"></i> Technical Skills</h2>
                     <div class="card-grid">
                         <div class="card">
                             <h3>IC Design Tools</h3>
@@ -546,20 +559,20 @@
             <!-- Courses Page -->
             <div id="courses" class="page">
                 <div class="section">
-                    <h2><i class="fas fa-chalkboard-teacher"></i> Materi & Resources</h2>
+                    <h2><i class="fas fa-chalkboard-teacher"></i> Learning Resources & Materials</h2>
                     
                     <div class="course-item">
                         <div class="course-header">
                             <div class="course-title">Analog IC Design Fundamentals</div>
                             <div class="course-code">EE401</div>
                         </div>
-                        <p>Materi dasar desain integrated circuit analog, termasuk MOSFET karakteristik, current mirrors, dan differential amplifiers.</p>
+                        <p>Basic analog integrated circuit design materials, including MOSFET characteristics, current mirrors, and differential amplifiers.</p>
                         <ul class="materials-list">
-                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 1: MOSFET Device Physics</a></li>
-                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 2: Current Mirrors and Biasing</a></li>
-                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 3: Operational Amplifier Design</a></li>
-                            <li><i class="fas fa-video"></i> <a href="#">Video Tutorial: Cadence Virtuoso Basics</a></li>
-                            <li><i class="fas fa-code"></i> <a href="#">SPICE Netlist Examples</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="https://example.com/mosfet-physics.pdf" target="_blank">Slide 1: MOSFET Device Physics</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="https://example.com/current-mirrors.pdf" target="_blank">Slide 2: Current Mirrors and Biasing</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="https://example.com/opamp-design.pdf" target="_blank">Slide 3: Operational Amplifier Design</a></li>
+                            <li><i class="fas fa-video"></i> <a href="https://youtube.com/watch?v=example1" target="_blank">Video Tutorial: Cadence Virtuoso Basics</a></li>
+                            <li><i class="fas fa-code"></i> <a href="https://github.com/mthudaa/spice-examples" target="_blank">SPICE Netlist Examples</a></li>
                         </ul>
                     </div>
 
@@ -568,13 +581,13 @@
                             <div class="course-title">Time Domain ADC Design</div>
                             <div class="course-code">EE501</div>
                         </div>
-                        <p>Materi advanced tentang desain ADC dengan pendekatan time domain, termasuk comparator design dan SAR architecture.</p>
+                        <p>Advanced materials on ADC design with time domain approach, including comparator design and SAR architecture.</p>
                         <ul class="materials-list">
-                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 1: Introduction to Time Domain ADC</a></li>
-                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 2: Time Domain Comparator Design</a></li>
-                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 3: SAR ADC Architecture</a></li>
-                            <li><i class="fas fa-video"></i> <a href="#">Video: Layout Techniques for ADC</a></li>
-                            <li><i class="fas fa-code"></i> <a href="#">Verilog Code: SAR Control Logic</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="https://example.com/time-domain-adc-intro.pdf" target="_blank">Slide 1: Introduction to Time Domain ADC</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="https://example.com/time-domain-comparator.pdf" target="_blank">Slide 2: Time Domain Comparator Design</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="https://example.com/sar-architecture.pdf" target="_blank">Slide 3: SAR ADC Architecture</a></li>
+                            <li><i class="fas fa-video"></i> <a href="https://youtube.com/watch?v=example2" target="_blank">Video: Layout Techniques for ADC</a></li>
+                            <li><i class="fas fa-code"></i> <a href="https://github.com/mthudaa/sar-control-logic" target="_blank">Verilog Code: SAR Control Logic</a></li>
                         </ul>
                     </div>
 
@@ -583,13 +596,13 @@
                             <div class="course-title">Mixed Signal IC Lab</div>
                             <div class="course-code">EE502</div>
                         </div>
-                        <p>Praktikum desain IC mixed signal menggunakan tools open source dan commercial untuk implementasi pada silicon.</p>
+                        <p>Mixed signal IC design laboratory using open source and commercial tools for silicon implementation.</p>
                         <ul class="materials-list">
-                            <li><i class="fas fa-file-pdf"></i> <a href="#">Lab Manual: Skywater 130nm PDK Setup</a></li>
-                            <li><i class="fas fa-file-pdf"></i> <a href="#">Tutorial: Magic IC Layout</a></li>
-                            <li><i class="fas fa-file-pdf"></i> <a href="#">Guide: Xschem Schematic Capture</a></li>
-                            <li><i class="fas fa-video"></i> <a href="#">Demo: Tape-out Process</a></li>
-                            <li><i class="fas fa-code"></i> <a href="#">Project: 10-bit SAR ADC Design</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="https://example.com/skywater-setup.pdf" target="_blank">Lab Manual: Skywater 130nm PDK Setup</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="https://example.com/magic-layout.pdf" target="_blank">Tutorial: Magic IC Layout</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="https://example.com/xschem-guide.pdf" target="_blank">Guide: Xschem Schematic Capture</a></li>
+                            <li><i class="fas fa-video"></i> <a href="https://youtube.com/watch?v=example3" target="_blank">Demo: Tape-out Process</a></li>
+                            <li><i class="fas fa-code"></i> <a href="https://github.com/mthudaa/10bit-sar-adc" target="_blank">Project: 10-bit SAR ADC Design</a></li>
                         </ul>
                     </div>
                 </div>
@@ -598,29 +611,29 @@
             <!-- Contact Page -->
             <div id="contact" class="page">
                 <div class="section">
-                    <h2><i class="fas fa-envelope"></i> Kontak</h2>
+                    <h2><i class="fas fa-envelope"></i> Contact</h2>
                     <div class="card-grid">
                         <div class="card">
-                            <h3>Alamat</h3>
+                            <h3>Address</h3>
                             <p>Karang Menur II Street, No. 22<br>
                             Surabaya, Jawa Timur<br>
                             Indonesia</p>
                         </div>
                         <div class="card">
-                            <h3>Informasi Kontak</h3>
+                            <h3>Contact Information</h3>
                             <p><strong>Email:</strong> muhammadhuda1025@gmail.com<br>
-                            <strong>Telepon:</strong> +62 812-3540-1201<br>
+                            <strong>Phone:</strong> +62 812-3540-1201<br>
                             <strong>Status:</strong> Available for collaboration</p>
                         </div>
                     </div>
                     
                     <div class="text-center mb-2">
-                        <h3>Ikuti Media Sosial & Professional Networks</h3>
+                        <h3>Follow My Professional Networks</h3>
                         <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
-                            <a href="https://www.linkedin.com/in/mthudaa/" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                            <a href="https://github.com/mthudaa" class="btn"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="#" class="btn"><i class="fas fa-graduation-cap"></i> ResearchGate</a>
-                            <a href="#" class="btn"><i class="fab fa-orcid"></i> ORCID</a>
+                            <a href="https://www.linkedin.com/in/mthudaa/" target="_blank" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                            <a href="https://github.com/mthudaa" target="_blank" class="btn"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://www.researchgate.net/profile/M-Huda" target="_blank" class="btn"><i class="fas fa-graduation-cap"></i> ResearchGate</a>
+                            <a href="https://orcid.org/0000-0000-0000-0000" target="_blank" class="btn"><i class="fab fa-orcid"></i> ORCID</a>
                         </div>
                     </div>
                 </div>
@@ -631,7 +644,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 Dr. Ahmad Santoso. Template ini dapat digunakan dan dimodifikasi sesuai kebutuhan.</p>
+            <p>&copy; 2024 M Taufiqul Huda. Academic resume website template for students and researchers.</p>
         </div>
     </footer>
 
