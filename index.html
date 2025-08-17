@@ -1,116 +1,708 @@
-<!DOCTYPE html>
-<html lang="en">
+<p>&copy; 2024 M Taufiqul Huda. Template website resume akademik untuk mahasiswa dan peneliti.</p><!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Personal Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>M Taufiqul Huda - Resume Akademik</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+
+        /* Profile Section */
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .profile-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info .title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            background: white;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .card .meta {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Course Materials */
+        .course-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .course-item:hover {
+            border-color: #3498db;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .course-title {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .course-code {
+            background: #3498db;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .materials-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .materials-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .materials-list li:last-child {
+            border-bottom: none;
+        }
+
+        .materials-list a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .materials-list a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        /* Publications List */
+        .publication-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+
+        .pub-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .pub-authors {
+            color: #7f8c8d;
+            margin-bottom: 0.3rem;
+        }
+
+        .pub-journal {
+            color: #3498db;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-info h1 {
+                font-size: 2rem;
+            }
+
+            .course-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
         <div class="container">
-            <h1>Your Name</h1>
-            <p>Professional Title</p>
-            <nav>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#work-experience">Experience</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+            <div class="header-content">
+                <div class="profile">
+                    <div class="profile-image">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h1>M Taufiqul Huda</h1>
+                        <div class="title">Electrical Engineering Student & Research Assistant</div>
+                        <div class="contact-info">
+                            <span><i class="fas fa-envelope"></i> muhammadhuda1025@gmail.com</span>
+                            <span><i class="fas fa-phone"></i> +62 812-3540-1201</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Karang Menur II Street, No. 22, Surabaya</span>
+                            <span><i class="fab fa-linkedin"></i> linkedin.com/in/mthudaa/</span>
+                            <span><i class="fab fa-github"></i> github.com/mthudaa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
-    <section id="about">
+
+    <!-- Navigation -->
+    <nav>
         <div class="container">
-            <h2>About Me</h2>
-            <p>Hello! I'm a professional with a passion for [Your Field]. With [X] years of experience, I have honed my skills in [Skill 1], [Skill 2], and [Skill 3]. I am excited to bring my expertise to new challenges and opportunities.</p>
+            <div class="nav-container">
+                <div class="logo">Resume Akademik</div>
+                <button class="mobile-toggle" onclick="toggleNav()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#" onclick="showPage('home')">Beranda</a></li>
+                    <li><a href="#" onclick="showPage('research')">Penelitian</a></li>
+                    <li><a href="#" onclick="showPage('publications')">Publikasi</a></li>
+                    <li><a href="#" onclick="showPage('courses')">Materi Kuliah</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Kontak</a></li>
+                </ul>
+            </div>
         </div>
-    </section>
-    <section id="skills">
+    </nav>
+
+    <!-- Main Content -->
+    <main>
         <div class="container">
-            <h2>Skills</h2>
-            <ul>
-                <li><strong>Skill 1:</strong> Description of Skill 1.</li>
-                <li><strong>Skill 2:</strong> Description of Skill 2.</li>
-                <li><strong>Skill 3:</strong> Description of Skill 3.</li>
-            </ul>
-        </div>
-    </section>
-    <section id="work-experience">
-        <div class="container">
-            <h2>Work Experience</h2>
-            <ul class="timeline">
-                <li>
-                    <div class="timeline-content">
-                        <h3>Job Title 1</h3>
-                        <p><strong>Company Name</strong> - Year</p>
-                        <p>Description of your role and responsibilities.</p>
+            <!-- Home Page -->
+            <div id="home" class="page active">
+                <div class="section">
+                    <h2><i class="fas fa-user"></i> Tentang Saya</h2>
+                    <p>Saya adalah mahasiswa program sarjana teknik elektro di Institut Teknologi Sepuluh Nopember. Selain studi, saya telah bekerja sebagai asisten laboratorium di Laboratorium Mikroelektronika dan Sistem Tertanam ITS. Saya memiliki passion yang kuat dalam penelitian integrated circuit mixed-signal. Saya juga pernah berpartisipasi dalam Taiwan Education and Experience Program (TEEP) di National Taiwan University of Science and Technology, dengan fokus pada Analog IC Design, khususnya time-domain ADCs.</p>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-graduation-cap"></i> Pendidikan</h2>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Master Electronic and Computer Engineering</h3>
+                            <div class="meta">National Taiwan University of Science and Technology • Sep 2025 - Aug 2027</div>
+                            <p>Member of Analog IC Lab (AIC Lab) under supervisor Prof. Poki Chen</p>
+                        </div>
+                        <div class="card">
+                            <h3>S1 Teknik Elektro</h3>
+                            <div class="meta">Institut Teknologi Sepuluh Nopember • Jun 2021 - Aug 2025</div>
+                            <p>IPK: 3.77/4.00. Berpartisipasi dalam penelitian biomedical SoC ITS menggunakan teknologi 130 nm untuk pengembangan biomedical SAR ADC dengan Time Domain Comparator.</p>
+                        </div>
                     </div>
-                </li>
-                <li>
-                    <div class="timeline-content">
-                        <h3>Job Title 2</h3>
-                        <p><strong>Company Name</strong> - Year</p>
-                        <p>Description of your role and responsibilities.</p>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-briefcase"></i> Pengalaman Kerja</h2>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>TEEP Intern</h3>
+                            <div class="meta">National Taiwan University of Science and Technology • Jul 2024 - Dec 2024</div>
+                            <p>Program magang internasional dari Kementerian Pendidikan Taiwan. Fokus pada Analog Mixed Signal IC design, khususnya Time Domain ADC menggunakan teknologi 180 nm.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Laboratory Coordinator</h3>
+                            <div class="meta">Microelectronics and Embedded Systems Laboratory ITS • Jul 2023 - Feb 2025</div>
+                            <p>Memberikan bantuan kepada mahasiswa dalam praktikum rangkaian listrik, sistem digital, dan rangkaian elektronika untuk 50% mahasiswa Teknik Elektro per semester.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Research Assistant</h3>
+                            <div class="meta">Semiconductor Flagship Research Program ITS • Sep 2024 - Present</div>
+                            <p>Fokus pada pengembangan ADC untuk Biomedical MCU. Meningkatkan akurasi SAR-ADC dari 10 bit ke 12 bit dan mengurangi konsumsi daya lebih dari 30%.</p>
+                        </div>
                     </div>
-                </li>
-            </ul>
-        </div>
-    </section>
-    <section id="education">
-        <div class="container">
-            <h2>Education</h2>
-            <ul class="timeline">
-                <li>
-                    <div class="timeline-content">
-                        <h3>Degree 1</h3>
-                        <p><strong>Institution Name</strong> - Year</p>
+                </div>
+            </div>
+
+            <!-- Research Page -->
+            <div id="research" class="page">
+                <div class="section">
+                    <h2><i class="fas fa-flask"></i> Bidang Penelitian</h2>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Mixed Signal IC Design</h3>
+                            <p>Fokus pada desain integrated circuit analog-digital untuk aplikasi biomedis</p>
+                        </div>
+                        <div class="card">
+                            <h3>Time Domain ADC</h3>
+                            <p>Penelitian dalam pengembangan Analog-to-Digital Converter dengan pendekatan time domain</p>
+                        </div>
+                        <div class="card">
+                            <h3>Low Power Circuit</h3>
+                            <p>Pengembangan rangkaian dengan konsumsi daya rendah untuk aplikasi portable</p>
+                        </div>
+                        <div class="card">
+                            <h3>Biomedical Electronics</h3>
+                            <p>Aplikasi elektronika untuk sistem biomedis dan perangkat kesehatan</p>
+                        </div>
                     </div>
-                </li>
-                <li>
-                    <div class="timeline-content">
-                        <h3>Degree 2</h3>
-                        <p><strong>Institution Name</strong> - Year</p>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-project-diagram"></i> Proyek Penelitian Aktif</h2>
+                    <div class="card">
+                        <h3>12-bit Time Domain SAR-ADC untuk Biomedical MCU</h3>
+                        <div class="meta">2024-2025 • Semiconductor Flagship Research Program ITS</div>
+                        <p>Pengembangan ADC dengan akurasi 12-bit menggunakan differential input design dan time-domain comparator. Design telah diselesaikan dan dikirim ke Skywater untuk tape-out menggunakan teknologi 130nm.</p>
                     </div>
-                </li>
-            </ul>
+                    <div class="card">
+                        <h3>10-bit Time Domain SAR-ADC (UNIC-CASS)</h3>
+                        <div class="meta">2024-2025 • IEEE Circuits and Systems Society</div>
+                        <p>Satu-satunya tim dari Indonesia yang berhasil melewati fase tape-out. Menyelesaikan desain menggunakan open-source software dan PDK Skywater dengan biaya tape-out gratis 100%.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publications Page -->
+            <div id="publications" class="page">
+                <div class="section">
+                    <h2><i class="fas fa-trophy"></i> Prestasi & Penghargaan</h2>
+                    <div class="publication-item">
+                        <div class="pub-title">Silver Medal - PIMNAS 36th 2023 (PKM-KC Prototype Category)</div>
+                        <div class="pub-authors">M. Taufiqul Huda (Team Leader)</div>
+                        <div class="pub-journal">Pekan Ilmiah Mahasiswa Nasional, Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi RI</div>
+                        <p style="margin-top: 0.5rem; color: #666;">Project: "Detektor Hemoglobin Non-Invasif dengan Kecerdasan Buatan Tertanam STM32 Untuk Memprediksi Anemia bagi Penderita Systemic Lupus Erythematosus"</p>
+                    </div>
+                    <div class="publication-item">
+                        <div class="pub-title">Successfully Completed Tape-out Phase - UNIC-CASS 2024</div>
+                        <div class="pub-authors">M. Taufiqul Huda & Team</div>
+                        <div class="pub-journal">IEEE Circuits and Systems Society</div>
+                        <p style="margin-top: 0.5rem; color: #666;">Satu-satunya delegasi Indonesia yang berhasil menyelesaikan fase tape-out untuk 10-bit Time Domain SAR-ADC</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-tools"></i> Keahlian Teknis</h2>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>IC Design Tools</h3>
+                            <p><strong>Commercial:</strong> Cadence, Synopsys<br>
+                            <strong>Open Source:</strong> Xschem, Ngspice, Magic IC Designer (Skywater 130nm PDK)</p>
+                        </div>
+                        <div class="card">
+                            <h3>Programming</h3>
+                            <p>C/C++, Python, MATLAB, Assembly Language<br>
+                            <strong>HDL:</strong> Verilog, VHDL</p>
+                        </div>
+                        <div class="card">
+                            <h3>Electronics Software</h3>
+                            <p>Proteus, Multisim, LT-Spice, STM32 Cube IDE, Arduino IDE</p>
+                        </div>
+                        <div class="card">
+                            <h3>Specialization</h3>
+                            <p>Mixed Signal IC Design, Low Power Circuits, Time Domain ADC, AI in Analog Design</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Courses Page -->
+            <div id="courses" class="page">
+                <div class="section">
+                    <h2><i class="fas fa-chalkboard-teacher"></i> Materi & Resources</h2>
+                    
+                    <div class="course-item">
+                        <div class="course-header">
+                            <div class="course-title">Analog IC Design Fundamentals</div>
+                            <div class="course-code">EE401</div>
+                        </div>
+                        <p>Materi dasar desain integrated circuit analog, termasuk MOSFET karakteristik, current mirrors, dan differential amplifiers.</p>
+                        <ul class="materials-list">
+                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 1: MOSFET Device Physics</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 2: Current Mirrors and Biasing</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 3: Operational Amplifier Design</a></li>
+                            <li><i class="fas fa-video"></i> <a href="#">Video Tutorial: Cadence Virtuoso Basics</a></li>
+                            <li><i class="fas fa-code"></i> <a href="#">SPICE Netlist Examples</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="course-item">
+                        <div class="course-header">
+                            <div class="course-title">Time Domain ADC Design</div>
+                            <div class="course-code">EE501</div>
+                        </div>
+                        <p>Materi advanced tentang desain ADC dengan pendekatan time domain, termasuk comparator design dan SAR architecture.</p>
+                        <ul class="materials-list">
+                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 1: Introduction to Time Domain ADC</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 2: Time Domain Comparator Design</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="#">Slide 3: SAR ADC Architecture</a></li>
+                            <li><i class="fas fa-video"></i> <a href="#">Video: Layout Techniques for ADC</a></li>
+                            <li><i class="fas fa-code"></i> <a href="#">Verilog Code: SAR Control Logic</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="course-item">
+                        <div class="course-header">
+                            <div class="course-title">Mixed Signal IC Lab</div>
+                            <div class="course-code">EE502</div>
+                        </div>
+                        <p>Praktikum desain IC mixed signal menggunakan tools open source dan commercial untuk implementasi pada silicon.</p>
+                        <ul class="materials-list">
+                            <li><i class="fas fa-file-pdf"></i> <a href="#">Lab Manual: Skywater 130nm PDK Setup</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="#">Tutorial: Magic IC Layout</a></li>
+                            <li><i class="fas fa-file-pdf"></i> <a href="#">Guide: Xschem Schematic Capture</a></li>
+                            <li><i class="fas fa-video"></i> <a href="#">Demo: Tape-out Process</a></li>
+                            <li><i class="fas fa-code"></i> <a href="#">Project: 10-bit SAR ADC Design</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Page -->
+            <div id="contact" class="page">
+                <div class="section">
+                    <h2><i class="fas fa-envelope"></i> Kontak</h2>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Alamat</h3>
+                            <p>Karang Menur II Street, No. 22<br>
+                            Surabaya, Jawa Timur<br>
+                            Indonesia</p>
+                        </div>
+                        <div class="card">
+                            <h3>Informasi Kontak</h3>
+                            <p><strong>Email:</strong> muhammadhuda1025@gmail.com<br>
+                            <strong>Telepon:</strong> +62 812-3540-1201<br>
+                            <strong>Status:</strong> Available for collaboration</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mb-2">
+                        <h3>Ikuti Media Sosial & Professional Networks</h3>
+                        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
+                            <a href="https://www.linkedin.com/in/mthudaa/" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                            <a href="https://github.com/mthudaa" class="btn"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="#" class="btn"><i class="fas fa-graduation-cap"></i> ResearchGate</a>
+                            <a href="#" class="btn"><i class="fab fa-orcid"></i> ORCID</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
-    <section id="projects">
-        <div class="container">
-            <h2>Projects</h2>
-            <ul>
-                <li>
-                    <h3>Project Name 1</h3>
-                    <p>Description of the project.</p>
-                    <a href="#">View Project</a>
-                </li>
-                <li>
-                    <h3>Project Name 2</h3>
-                    <p>Description of the project.</p>
-                    <a href="#">View Project</a>
-                </li>
-            </ul>
-        </div>
-    </section>
-    <section id="contact">
-        <div class="container">
-            <h2>Contact</h2>
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-        </div>
-    </section>
+    </main>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2023 Your Name. All rights reserved.</p>
+            <p>&copy; 2024 Dr. Ahmad Santoso. Template ini dapat digunakan dan dimodifikasi sesuai kebutuhan.</p>
         </div>
     </footer>
+
+    <script>
+        // Navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            const toggleBtn = document.querySelector('.mobile-toggle');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for in-page navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation for page transitions
+        function showPageWithAnimation(pageId) {
+            const currentPage = document.querySelector('.page.active');
+            const newPage = document.getElementById(pageId);
+            
+            if (currentPage === newPage) return;
+            
+            // Fade out current page
+            if (currentPage) {
+                currentPage.style.opacity = '0';
+                setTimeout(() => {
+                    currentPage.classList.remove('active');
+                    newPage.classList.add('active');
+                    newPage.style.opacity = '0';
+                    setTimeout(() => {
+                        newPage.style.opacity = '1';
+                    }, 50);
+                }, 150);
+            } else {
+                newPage.classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
