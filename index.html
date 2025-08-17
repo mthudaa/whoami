@@ -563,7 +563,7 @@
                     
                     <div class="course-item">
                         <div class="course-header">
-                            <div class="course-title">Analog IC Design Fundamentals</div>
+                            <div class="course-title">Electrical Circuit</div>
                             <div class="course-code">EE401</div>
                         </div>
                         <p>Basic analog integrated circuit design materials, including MOSFET characteristics, current mirrors, and differential amplifiers.</p>
@@ -578,7 +578,7 @@
 
                     <div class="course-item">
                         <div class="course-header">
-                            <div class="course-title">Time Domain ADC Design</div>
+                            <div class="course-title">Electronic Circuit</div>
                             <div class="course-code">EE501</div>
                         </div>
                         <p>Advanced materials on ADC design with time domain approach, including comparator design and SAR architecture.</p>
@@ -593,7 +593,7 @@
 
                     <div class="course-item">
                         <div class="course-header">
-                            <div class="course-title">Mixed Signal IC Lab</div>
+                            <div class="course-title">How to Design an IC?</div>
                             <div class="course-code">EE502</div>
                         </div>
                         <p>Mixed signal IC design laboratory using open source and commercial tools for silicon implementation.</p>
@@ -632,12 +632,49 @@
                         <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
                             <a href="https://www.linkedin.com/in/mthudaa/" target="_blank" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
                             <a href="https://github.com/mthudaa" target="_blank" class="btn"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://www.researchgate.net/profile/M-Huda" target="_blank" class="btn"><i class="fas fa-graduation-cap"></i> ResearchGate</a>
-                            <a href="https://orcid.org/0000-0000-0000-0000" target="_blank" class="btn"><i class="fab fa-orcid"></i> ORCID</a>
                         </div>
+                    </div>
+
+                    <div class="section" style="margin-top:2rem;">
+                        <h3 class="text-center mb-1"><i class="fas fa-paper-plane"></i> Send Email</h3>
+                        <form id="contactForm" class="text-center" style="max-width:400px;margin:0 auto;">
+                            <div style="margin-bottom:1rem;">
+                                <input type="text" name="name" placeholder="Your Name" required style="width:100%;padding:0.7rem;border-radius:5px;border:1px solid #ccc;">
+                            </div>
+                            <div style="margin-bottom:1rem;">
+                                <input type="email" name="email" placeholder="Your Email" required style="width:100%;padding:0.7rem;border-radius:5px;border:1px solid #ccc;">
+                            </div>
+                            <div style="margin-bottom:1rem;">
+                                <textarea name="message" placeholder="Your Message" required rows="5" style="width:100%;padding:0.7rem;border-radius:5px;border:1px solid #ccc;"></textarea>
+                            </div>
+                            <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+                        </form>
+                        <div id="formStatus" class="text-center" style="margin-top:1rem;color:#3498db;"></div>
                     </div>
                 </div>
             </div>
+            <script>
+                // Simple mailto form handler
+                document.addEventListener('DOMContentLoaded', function() {
+                    const form = document.getElementById('contactForm');
+                    if(form) {
+                        form.addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            const name = form.name.value.trim();
+                            const email = form.email.value.trim();
+                            const message = form.message.value.trim();
+                            const subject = encodeURIComponent('Contact from Website: ' + name);
+                            const body = encodeURIComponent(
+                                'Name: ' + name + '\n' +
+                                'Email: ' + email + '\n\n' +
+                                message
+                            );
+                            window.location.href = `mailto:muhammadhuda1025@gmail.com?subject=${subject}&body=${body}`;
+                            document.getElementById('formStatus').textContent = "Opening your email client...";
+                        });
+                    }
+                });
+            </script>
         </div>
     </main>
 
