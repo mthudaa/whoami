@@ -1,0 +1,228 @@
+{
+  "schema_version": "1.0",
+  "profile": {
+    "name": "M. Taufiqul Huda",
+    "location": "Taipei, Taiwan",
+    "headline": "M.S. student in Electronic and Computer Engineering | Analog/Mixed-Signal IC Design",
+    "summary": "Master's student at National Taiwan University of Science and Technology (NTUST), specializing in analog and mixed-signal IC design. Research focuses on ultra-low-power time-domain SAR ADCs. Experience spans analog IC design, open-source and commercial EDA flows, verification, and tapeout-oriented projects.",
+    "contact": {
+      "email": "mthudaa@proton.me"
+    },
+    "links": {
+      "github": "https://github.com/mthudaa",
+      "linkedin": "https://www.linkedin.com/in/mthudaa/",
+      "google_scholar": "https://scholar.google.com/citations?user=59okjaEAAAAJ"
+    }
+  },
+  "education": [
+    {
+      "institution": "National Taiwan University of Science and Technology (NTUST)",
+      "degree": "M.S.",
+      "field": "Electronic and Computer Engineering",
+      "location": "Taipei, Taiwan",
+      "start": "2025-09",
+      "expected_end": "2027-08",
+      "advisor": "Prof. Poki Chen",
+      "lab": "Analog IC Laboratory (AIC Lab)",
+      "research": "14-bit time-domain SAR ADC for ultra-low-power applications"
+    },
+    {
+      "institution": "Institut Teknologi Sepuluh Nopember (ITS)",
+      "degree": "B.S.",
+      "field": "Electrical Engineering",
+      "location": "Surabaya, Indonesia",
+      "start": "2021-06",
+      "end": "2025-08",
+      "gpa": "3.77/4.00",
+      "thesis": "Biomedical ADC design with a time-domain comparator (130 nm)",
+      "advisor": "Astria Nur Irfansyah, PhD"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Laboratory Member / Analog IC Design Researcher",
+      "organization": "Analog IC Laboratory, NTUST",
+      "location": "Taipei, Taiwan",
+      "start": "2025-08",
+      "end": null,
+      "highlights": [
+        "Researching high-resolution, ultra-low-power time-domain SAR ADCs.",
+        "Working across analog/mixed-signal IC design and performance optimization."
+      ]
+    },
+    {
+      "role": "Research Assistant",
+      "organization": "Semiconductor Flagship Research Program, ITS",
+      "location": "Surabaya, Indonesia",
+      "start": "2024-09",
+      "end": null,
+      "highlights": [
+        "Improved SAR ADC design target from 10-bit to 12-bit using differential input.",
+        "Reduced ADC power consumption by more than 30% through a time-domain comparator approach.",
+        "Design submitted for SkyWater 130 nm tapeout."
+      ]
+    },
+    {
+      "role": "Laboratory Coordinator",
+      "organization": "Microelectronics and Embedded Systems Laboratory, ITS",
+      "location": "Surabaya, Indonesia",
+      "start": "2023-07",
+      "end": "2025-02",
+      "highlights": [
+        "Assisted students with electrical circuits, digital systems, and electronics practicums.",
+        "Worked in the research and training division to organize training and research-competition programs."
+      ]
+    },
+    {
+      "role": "TEEP Intern — Analog/Mixed-Signal IC Design",
+      "organization": "National Taiwan University of Science and Technology",
+      "location": "Taipei, Taiwan",
+      "start": "2024-07",
+      "end": "2024-12",
+      "highlights": [
+        "Designed a 12-bit time-domain ADC in 180 nm technology.",
+        "Learned Cadence and Synopsys IC design flows and APR techniques."
+      ]
+    }
+  ],
+  "selected_projects": [
+    {
+      "name": "Field Programmable Mixed-Signal Array (FPMA)",
+      "program": "IEEE SSCS PICO Chipathon 2025",
+      "role": "Track M6 Leader",
+      "technology": "GF180MCU",
+      "dates": "2025-05/2025-11",
+      "status": "Tapeout completed",
+      "highlights": [
+        "Designed a 16 x 70 switch matrix for flexible routing of FETs, current mirrors, and OTAs.",
+        "Integrated a tinyFPGA with 4 CLBs on-die.",
+        "Led architecture, schematic, top-level layout, and DRC/LVS verification."
+      ]
+    },
+    {
+      "name": "10-bit Time-Domain SAR ADC for Biomedical PPG Acquisition",
+      "program": "Tiny Tapeout ttsky25b",
+      "technology": "SkyWater 130 nm (Sky130)",
+      "status": "Fabricated",
+      "metrics": {
+        "resolution_bits": 10,
+        "power_uW": 23.25,
+        "conversion_time_us": 5.2,
+        "enob_bits": 6.44,
+        "snr_dB": 41.03
+      },
+      "url": "https://github.com/mthudaa/its_10b_tadc"
+    },
+    {
+      "name": "10-bit Time-Domain SAR ADC",
+      "program": "UNIC-CASS 2024 / IEEE CASS",
+      "technology": "SkyWater 130 nm (Sky130)",
+      "dates": "2024-04/2025-05",
+      "status": "Passed tapeout review; fabrication did not complete after vendor shutdown",
+      "highlights": [
+        "Designed using an open-source EDA flow.",
+        "Team reported as the only Indonesian delegation to pass the tapeout review phase."
+      ]
+    }
+  ],
+  "skills": {
+    "analog_mixed_signal": [
+      "SAR ADC",
+      "time-domain ADC",
+      "TDC",
+      "bandgap",
+      "op-amp",
+      "comparator",
+      "switch matrix",
+      "FPMA"
+    ],
+    "eda": {
+      "open_source": [
+        "Xschem",
+        "Ngspice",
+        "Magic",
+        "KLayout",
+        "Netgen",
+        "OpenLane",
+        "Caravel"
+      ],
+      "commercial": [
+        "Cadence",
+        "Synopsys"
+      ]
+    },
+    "design_and_verification": [
+      "Custom analog layout",
+      "floorplanning",
+      "DRC/LVS",
+      "parasitic extraction",
+      "PVT analysis",
+      "Monte Carlo simulation",
+      "pre/post-layout simulation"
+    ],
+    "programming_and_description": [
+      "Python",
+      "MATLAB",
+      "C/C++",
+      "Tcl",
+      "Verilog",
+      "Verilog-A",
+      "VHDL"
+    ],
+    "pdk_experience": [
+      "SkyWater 130 nm (Sky130)",
+      "GF180MCU",
+      "CMOS 130 nm",
+      "CMOS 180 nm"
+    ],
+    "lab_equipment": [
+      "Oscilloscope",
+      "spectrum analyzer",
+      "signal generator",
+      "SMU"
+    ]
+  },
+  "publication": [
+    {
+      "authors": [
+        "M. T. Huda",
+        "A. N. Irfansyah"
+      ],
+      "title": "A Time-Domain Comparator-Based 10-Bit SAR-ADC Design for Photoplethysmogram Signal Recording using Skywater 130 nm and Open-Source Tools",
+      "venue": "2025 International Symposium on Intelligent Signal Processing and Communication Systems (ISPACS)",
+      "year": 2025
+    }
+  ],
+  "awards": [
+    {
+      "name": "Silver Medal",
+      "event": "PIMNAS 36th / National Student Scientific Week",
+      "year": 2023,
+      "project": "Non-invasive hemoglobin detector using embedded AI on STM32 for anemia prediction in patients with systemic lupus erythematosus"
+    },
+    {
+      "name": "IEEE SSCS PICO Chipathon 2025 — Track M6 Leader",
+      "year": 2025,
+      "result": "FPMA tapeout completed in GF180MCU"
+    },
+    {
+      "name": "UNIC-CASS 2024",
+      "year": 2024,
+      "result": "Passed tapeout review phase"
+    }
+  ],
+  "languages": [
+    {
+      "language": "Indonesian",
+      "level": "Native"
+    },
+    {
+      "language": "English",
+      "level": "Professional"
+    },
+    {
+      "language": "Mandarin Chinese",
+      "level": "Learning"
+    }
+  ]
+}
