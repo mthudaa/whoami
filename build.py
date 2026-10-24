@@ -126,8 +126,9 @@ def render_hero(cv):
             f'<div class="metric"><div class="v">{m[key]:g}<span class="u">{unit}</span></div>'
             f'<div class="l">{label}</div></div>'
             for key, unit, label in METRICS if key in m)
+        basis = proj.get("metrics_basis", "design metrics")
         caption = (f'<p class="metrics-cap">{esc(proj["name"])} · {esc(proj["program"])} '
-                   f'({esc(proj["technology"])}) — design metrics</p>')
+                   f'({esc(proj["technology"])}) — {esc(basis)}</p>')
         tiles = f'<div class="metrics" role="group" aria-label="Design metrics">{tiles}</div>'
 
     focus_html = f'<p class="focus">{esc(focus)}</p>' if focus else ""
@@ -206,9 +207,13 @@ def render_projects(cv):
             parts = [f'{m["resolution_bits"]}-bit'] + [
                 f'{label} {m[key]:g} {unit}' if unit != "bit" else f'{label} {m[key]:g} bit'
                 for key, unit, label in METRICS if key in m]
-            metric_chips = chips(parts)
-        link = (f'<p><a class="btn" href="{url(p["url"])}" target="_blank" rel="noopener">'
-                f'View repository {icon("out")}</a></p>' if p.get("url") else "")
+            basis = p.get("metrics_basis", "design metrics")
+            metric_chips = f'<p class="mono-meta metric-basis">{esc(basis[:1].upper() + basis[1:])}</p>' + chips(parts)
+        buttons = [
+            f'<a class="btn" href="{url(p[key])}" target="_blank" rel="noopener">{label} {icon("out")}</a>'
+            for key, label in (("tinytapeout_url", "Tiny Tapeout page"), ("url", "Source repository"))
+            if p.get(key)]
+        link = f'<div class="btns">{"".join(buttons)}</div>' if buttons else ""
         cards.append(
             f'<article class="card"><h3>{esc(p["name"])}</h3>'
             f'<p class="tags">{"".join(tags)}</p>{status}{bullets(p.get("highlights"))}'
@@ -406,6 +411,7 @@ ul.hl li{margin:4px 0}
 .group-label.spaced{margin-top:30px}
 .more{margin:14px 0 0;font-size:15px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0;list-style:none}
+.metric-basis{margin:14px 0 -2px}
 .skills .chips{margin-top:0}
 .chips li{padding:4px 10px;border-radius:6px;border:1px solid var(--line);background:var(--bg-soft);font:13px/1.5 var(--mono)}
 .skills{display:grid;gap:26px 32px}

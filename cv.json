@@ -111,6 +111,8 @@
         "enob_bits": 6.44,
         "snr_dB": 41.03
       },
+      "metrics_basis": "post-layout simulation",
+      "tinytapeout_url": "https://tinytapeout.com/chips/ttsky25b/tt_um_tadc_its",
       "url": "https://github.com/mthudaa/its_10b_tadc"
     },
     {
