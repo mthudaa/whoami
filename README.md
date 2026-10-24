@@ -29,8 +29,8 @@ asks for reduced motion get the static page by default, and print output has no 
 | `cv.json` | Source data (schema 1.0). Everything in it is published. |
 | `build.py` | `cv.json` to `index.html`, deterministic output |
 | `index.html` | Generated page served by GitHub Pages |
-| `Huda-formal.png` | Original portrait |
-| `Huda-formal-640.jpg` | 640 px square crop of the portrait used on the page and in link previews |
+| `profile-640.jpg` | Profile photo used on the page and in link previews (640 px square crop) |
+| `Huda-formal.png` | Previous portrait, no longer used by the page |
 
 ## Privacy
 

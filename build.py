@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 SITE_URL = "https://mthudaa.github.io/whoami/"
-PHOTO = "Huda-formal-640.jpg"
+PHOTO = "profile-640.jpg"
 PHOTO_SIZE = 640
 SAFE_URL = ("https://", "http://", "mailto:", "tel:")
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -382,7 +382,7 @@ img{max-width:100%}
 .hero .wrap{position:relative}
 @keyframes blink{50%{opacity:0}}
 .hero-grid{display:grid;gap:26px;align-items:center}
-.photo{width:152px;height:152px;border-radius:50%;object-fit:cover;object-position:50% 20%;background:#fff;
+.photo{width:152px;height:152px;border-radius:50%;object-fit:cover;background:var(--bg-soft);
   border:2px solid var(--line-strong);box-shadow:0 0 0 6px var(--accent-soft)}
 @media (min-width:760px){.hero-grid{grid-template-columns:auto 1fr;gap:44px}.photo{width:204px;height:204px}}
 .prompt{margin:0 0 6px;font:14px var(--mono);color:var(--accent)}
