@@ -13,6 +13,15 @@ The page is a single static `index.html`, generated from `cv.json`.
 
 Layout and styling live in `build.py`. `index.html` is generated, so don't edit it by hand.
 
+## Animations
+
+A faint routing grid with signal pulses sits behind the page, the hero fades in, sections reveal on
+scroll, the metric numbers count up, and the "Current research" card runs an illustrative 14-step SAR
+conversion. All of it is plain CSS and JavaScript inside `index.html`.
+
+The nav has a pause/play button for all animations (remembered in the browser). Visitors whose system
+asks for reduced motion get the static page by default, and print output has no animation.
+
 ## Files
 
 | File | Purpose |

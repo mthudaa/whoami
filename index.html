@@ -16,22 +16,22 @@
 <meta property="og:url" content="https://mthudaa.github.io/whoami/">
 <meta property="og:image" content="https://mthudaa.github.io/whoami/Huda-formal-640.jpg">
 <meta name="twitter:card" content="summary">
-<script>(function(){var r=document.documentElement,t=null;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}r.dataset.theme=t})();</script>
+<script>(function(){var r=document.documentElement,t=null,m=null;try{t=localStorage.getItem('theme');m=localStorage.getItem('motion')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}if(m!=='on'&&m!=='off'){m=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on'}r.dataset.theme=t;r.dataset.motion=m})();</script>
 <style>
 :root{
   color-scheme:dark;
   --bg:#0a1016; --bg-soft:#0e161e; --card:#101a23; --line:#1d2b37; --line-strong:#2a3d4d;
   --text:#dde7ee; --muted:#93a8b8; --accent:#4fd1c5; --accent-ink:#04201e; --accent-soft:rgba(79,209,197,.10);
-  --warn:#f2b45c; --ok:#6fd49a; --grid:rgba(79,209,197,.07); --shadow:0 8px 24px rgba(0,0,0,.25);
+  --warn:#f2b45c; --ok:#6fd49a; --grid:rgba(79,209,197,.07); --pulse:.55; --shadow:0 8px 24px rgba(0,0,0,.25);
   --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 @media (prefers-color-scheme:light){:root:not([data-theme]){color-scheme:light;--bg:#f4f7f9; --bg-soft:#eaf0f4; --card:#ffffff; --line:#d5dee5; --line-strong:#b7c5d0;
     --text:#14212b; --muted:#475a69; --accent:#0a7771; --accent-ink:#ffffff; --accent-soft:rgba(10,119,113,.10);
-    --warn:#8a5a00; --ok:#1f7a45; --grid:rgba(10,119,113,.09); --shadow:0 1px 2px rgba(20,33,43,.06);}}
+    --warn:#8a5a00; --ok:#1f7a45; --grid:rgba(10,119,113,.09); --pulse:.42; --shadow:0 1px 2px rgba(20,33,43,.06);}}
 :root[data-theme="light"]{color-scheme:light;--bg:#f4f7f9; --bg-soft:#eaf0f4; --card:#ffffff; --line:#d5dee5; --line-strong:#b7c5d0;
     --text:#14212b; --muted:#475a69; --accent:#0a7771; --accent-ink:#ffffff; --accent-soft:rgba(10,119,113,.10);
-    --warn:#8a5a00; --ok:#1f7a45; --grid:rgba(10,119,113,.09); --shadow:0 1px 2px rgba(20,33,43,.06);}
+    --warn:#8a5a00; --ok:#1f7a45; --grid:rgba(10,119,113,.09); --pulse:.42; --shadow:0 1px 2px rgba(20,33,43,.06);}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 var(--sans);overflow-wrap:anywhere}
@@ -66,16 +66,8 @@ img{max-width:100%}
 
 /* hero */
 .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);padding:48px 0 40px;scroll-margin-top:90px}
-.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:32px 32px;-webkit-mask-image:linear-gradient(180deg,#000 35%,transparent);mask-image:linear-gradient(180deg,#000 35%,transparent)}
 .hero .wrap{position:relative}
-.trace{display:none;position:absolute;right:24px;top:34px;opacity:.55;pointer-events:none}
-.trace .step{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.4s ease-out .3s forwards}
-.trace .target{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 5;opacity:.7}
-@keyframes draw{to{stroke-dashoffset:0}}
 @keyframes blink{50%{opacity:0}}
-@media (min-width:1240px){.trace{display:block}}
 .hero-grid{display:grid;gap:26px;align-items:center}
 .photo{width:152px;height:152px;border-radius:50%;object-fit:cover;object-position:50% 20%;background:#fff;
   border:2px solid var(--line-strong);box-shadow:0 0 0 6px var(--accent-soft)}
@@ -100,9 +92,49 @@ h1{margin:0 0 8px;font-size:clamp(2rem,5.2vw,3.2rem);line-height:1.1;letter-spac
 .metric .u{margin-left:4px;font-size:.55em;font-weight:600;color:var(--muted)}
 .metric .l{margin-top:6px;font:12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .metrics-cap{margin:10px 0 0;font:12px/1.5 var(--mono);color:var(--muted)}
-.research-card{margin-top:26px;padding:18px 22px;border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:10px;background:var(--card)}
+.research-card{display:grid;gap:18px;align-items:center;margin-top:26px;padding:18px 22px;border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:10px;background:var(--card)}
+@media (min-width:760px){.research-card{grid-template-columns:1fr minmax(260px,330px);gap:32px}}
 .research-card .group-label{margin:0 0 6px}
 .research-line{margin:0 0 6px;font-size:1.15rem;font-weight:600;line-height:1.4}
+
+/* background grid + signal pulses (canvas is drawn by the page script) */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+
+/* motion: everything below only applies while html[data-motion="on"] */
+.tools{display:flex;gap:8px}
+.m-play{display:none}
+html[data-motion="off"] .m-pause{display:none}
+html[data-motion="off"] .m-play{display:inline}
+.rv{transition:opacity .6s ease var(--d,0ms),transform .6s cubic-bezier(.2,.7,.2,1) var(--d,0ms),border-color .25s,box-shadow .25s}
+html[data-motion="on"] .rv:not(.in){opacity:0;transform:translateY(16px)}
+.card:hover{border-color:var(--line-strong)}
+@supports (background:color-mix(in srgb,red,blue)){.card:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+html[data-motion="on"] .hero-grid>div>*{animation:rise .75s cubic-bezier(.2,.7,.2,1) both}
+html[data-motion="on"] .hero-grid>div>:nth-child(2){animation-delay:.08s}
+html[data-motion="on"] .hero-grid>div>:nth-child(3){animation-delay:.16s}
+html[data-motion="on"] .hero-grid>div>:nth-child(4){animation-delay:.24s}
+html[data-motion="on"] .hero-grid>div>:nth-child(5){animation-delay:.32s}
+html[data-motion="on"] .hero-grid>div>:nth-child(6){animation-delay:.4s}
+html[data-motion="on"] .hero-grid>div>:nth-child(7){animation-delay:.48s}
+html[data-motion="on"] .photo{animation:pop .8s cubic-bezier(.2,.7,.2,1) both}
+
+/* SAR conversion illustration inside the research card */
+.sar{width:100%;max-width:340px;justify-self:end}
+.sar svg{display:block;width:100%;height:auto;overflow:visible}
+.sar-vin{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 4;vector-effect:non-scaling-stroke}
+.sar-path{fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.sar-dot{fill:var(--accent);filter:drop-shadow(0 0 4px var(--accent))}
+.sar-bits{display:grid;grid-template-columns:repeat(14,1fr);gap:3px;margin-top:8px}
+.sar-bits i{min-height:24px;padding:6px 0 5px;border:1px solid var(--line);border-radius:4px;background:var(--bg-soft);
+  font:normal 11px/1 var(--mono);text-align:center;color:var(--muted)}
+.sar-bits i.b1{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.sar-bits i.b0{color:var(--text)}
+.sar-cap{margin:8px 0 0;font:11px/1.4 var(--mono);color:var(--muted)}
 
 /* sections */
 section{padding:54px 0 0;scroll-margin-top:96px}
@@ -150,14 +182,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 2
 footer a{color:var(--muted)}
 
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .trace .step{stroke-dashoffset:0}
+  html:not([data-motion="on"]){scroll-behavior:auto}
+  html:not([data-motion="on"]) *,html:not([data-motion="on"]) *::before,html:not([data-motion="on"]) *::after{animation:none!important;transition:none!important}
 }
+html[data-motion="off"]{scroll-behavior:auto}
+html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="off"] *::after{animation:none!important;transition:none!important}
 @media (max-width:420px){.wrap{padding:0 16px}.card{padding:18px}}
 @media print{
   :root,:root[data-theme]{--bg:#fff;--bg-soft:#fff;--card:#fff;--line:#ccc;--line-strong:#999;--text:#000;--muted:#333;--accent:#000;--accent-soft:transparent;--grid:transparent;--shadow:none}
-  .nav,.trace,.skip,.btns,.prompt,.hero::before{display:none!important}
+  .nav,#bg,.sar,.skip,.btns,.prompt,body::before{display:none!important}
+  .rv{opacity:1!important;transform:none!important}
+  .research-card{grid-template-columns:1fr}
   body{font-size:11pt}
   section{padding-top:18px}
   .card,.timeline>li,.metric,.research-card{break-inside:avoid}
@@ -195,23 +230,26 @@ footer a{color:var(--muted)}
 </script>
 </head>
 <body>
+<canvas id="bg" aria-hidden="true"></canvas>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="#about"><b>huda</b>@whoami:~$</a>
     <nav class="links" aria-label="Sections"><a href="#about">About</a><a href="#education">Education</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#recognition">Publication &amp; Awards</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav>
+    <div class="tools">
+    <button class="themebtn" id="motion-toggle" type="button" aria-label="Pause animations" title="Pause or play animations" hidden>
+      <svg class="m-pause" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
+      <svg class="m-play" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>
+    </button>
     <button class="themebtn" id="theme-toggle" type="button" aria-label="Switch theme" hidden>
       <svg class="t-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       <svg class="t-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>
+    </div>
   </div>
 </header>
 <main id="main">
 <section class="hero" id="about" aria-labelledby="name">
-  <svg class="trace" viewBox="0 0 360 120" width="360" height="120" aria-hidden="true">
-    <line class="target" x1="0" y1="56" x2="360" y2="56"/>
-    <path class="step" d="M0 104 H34 V28 H68 V76 H102 V46 H136 V62 H170 V52 H204 V58 H238 V55 H360"/>
-  </svg>
   <div class="wrap">
     <div class="hero-grid">
       <img class="photo" src="Huda-formal-640.jpg" width="640" height="640" alt="Portrait of M. Taufiqul Huda" fetchpriority="high">
@@ -230,49 +268,52 @@ footer a{color:var(--muted)}
         </div>
       </div>
     </div>
-    <div class="metrics" role="group" aria-label="Design metrics"><div class="metric"><div class="v">23.25<span class="u">µW</span></div><div class="l">Power</div></div><div class="metric"><div class="v">5.2<span class="u">µs</span></div><div class="l">Conversion time</div></div><div class="metric"><div class="v">6.44<span class="u">bit</span></div><div class="l">ENOB</div></div><div class="metric"><div class="v">41.03<span class="u">dB</span></div><div class="l">SNR</div></div></div>
+    <div class="metrics" role="group" aria-label="Design metrics"><div class="metric rv"><div class="v"><span class="num" data-v="23.25" data-dec="2">23.25</span><span class="u">µW</span></div><div class="l">Power</div></div><div class="metric rv"><div class="v"><span class="num" data-v="5.2" data-dec="1">5.2</span><span class="u">µs</span></div><div class="l">Conversion time</div></div><div class="metric rv"><div class="v"><span class="num" data-v="6.44" data-dec="2">6.44</span><span class="u">bit</span></div><div class="l">ENOB</div></div><div class="metric rv"><div class="v"><span class="num" data-v="41.03" data-dec="2">41.03</span><span class="u">dB</span></div><div class="l">SNR</div></div></div>
     <p class="metrics-cap">10-bit Time-Domain SAR ADC for Biomedical PPG Acquisition · Tiny Tapeout ttsky25b (SkyWater 130 nm (Sky130)) — post-layout simulation</p>
-    <div class="research-card">
-      <p class="group-label">Current research</p>
-      <p class="research-line">14-bit time-domain SAR ADC for ultra-low-power applications</p>
-      <p class="mono-meta">Analog IC Laboratory (AIC Lab) · National Taiwan University of Science and Technology (NTUST)</p>
+    <div class="research-card rv">
+      <div>
+        <p class="group-label">Current research</p>
+        <p class="research-line">14-bit time-domain SAR ADC for ultra-low-power applications</p>
+        <p class="mono-meta">Analog IC Laboratory (AIC Lab) · National Taiwan University of Science and Technology (NTUST)</p>
+      </div>
+      <div class="sar" aria-hidden="true"><svg viewBox="0 0 280 76" width="280" height="76"><line class="sar-vin" x1="0" x2="280" y1="28.4" y2="28.4"/><path class="sar-path" d="M0 38.0 H20 V18.0 H40 V28.0 H60 V33.0 H80 V30.5 H100 V29.2 H120 V28.6 H140 V28.3 H160 V28.5 H180 V28.4 H200 V28.4 H220 V28.4 H240 V28.4 H260 V28.4 H280"/><circle class="sar-dot" r="3.2" cx="270" cy="28.4"/></svg><div class="sar-bits"><i class="b1">1</i><i class="b0">0</i><i class="b0">0</i><i class="b1">1</i><i class="b1">1</i><i class="b1">1</i><i class="b1">1</i><i class="b0">0</i><i class="b1">1</i><i class="b0">0</i><i class="b1">1</i><i class="b1">1</i><i class="b1">1</i><i class="b0">0</i></div><p class="sar-cap">Illustration: 14-step SAR binary search, MSB → LSB</p></div>
     </div>
   </div>
 </section>
 <section id="education" aria-labelledby="education-h">
   <div class="wrap">
-    <div class="sec-head"><span class="idx" aria-hidden="true">01</span><h2 id="education-h">Education</h2></div>
-<div class="cards two"><article class="card"><h3>M.S. in Electronic and Computer Engineering</h3><p class="sub">National Taiwan University of Science and Technology (NTUST) · Taipei, Taiwan</p><p class="mono-meta">Sep 2025 – Aug 2027 (expected)</p><dl class="facts"><dt>Advisor</dt><dd>Prof. Poki Chen</dd></dl></article><article class="card"><h3>B.S. in Electrical Engineering</h3><p class="sub">Institut Teknologi Sepuluh Nopember (ITS) · Surabaya, Indonesia</p><p class="mono-meta">Jun 2021 – Aug 2025</p><dl class="facts"><dt>Advisor</dt><dd>Astria Nur Irfansyah, PhD</dd><dt>GPA</dt><dd>3.77/4.00</dd><dt>Thesis</dt><dd>Biomedical ADC design with a time-domain comparator (130 nm)</dd></dl></article></div>
+    <div class="sec-head rv"><span class="idx" aria-hidden="true">01</span><h2 id="education-h">Education</h2></div>
+<div class="cards two"><article class="card rv"><h3>M.S. in Electronic and Computer Engineering</h3><p class="sub">National Taiwan University of Science and Technology (NTUST) · Taipei, Taiwan</p><p class="mono-meta">Sep 2025 – Aug 2027 (expected)</p><dl class="facts"><dt>Advisor</dt><dd>Prof. Poki Chen</dd></dl></article><article class="card rv"><h3>B.S. in Electrical Engineering</h3><p class="sub">Institut Teknologi Sepuluh Nopember (ITS) · Surabaya, Indonesia</p><p class="mono-meta">Jun 2021 – Aug 2025</p><dl class="facts"><dt>Advisor</dt><dd>Astria Nur Irfansyah, PhD</dd><dt>GPA</dt><dd>3.77/4.00</dd><dt>Thesis</dt><dd>Biomedical ADC design with a time-domain comparator (130 nm)</dd></dl></article></div>
   </div>
 </section>
 <section id="experience" aria-labelledby="experience-h">
   <div class="wrap">
-    <div class="sec-head"><span class="idx" aria-hidden="true">02</span><h2 id="experience-h">Experience</h2></div>
-<ol class="timeline"><li><h3>Laboratory Member / Analog IC Design Researcher</h3><p class="sub">Analog IC Laboratory, NTUST · Taipei, Taiwan</p><p class="mono-meta">Aug 2025 – Present</p><ul class="hl"><li>Researching high-resolution, ultra-low-power time-domain SAR ADCs.</li><li>Working across analog/mixed-signal IC design and performance optimization.</li></ul></li><li><h3>Research Assistant</h3><p class="sub">Semiconductor Flagship Research Program, ITS · Surabaya, Indonesia</p><p class="mono-meta">Sep 2024 – Present</p><ul class="hl"><li>Improved SAR ADC design target from 10-bit to 12-bit using differential input.</li><li>Reduced ADC power consumption by more than 30% through a time-domain comparator approach.</li><li>Design submitted for SkyWater 130 nm tapeout.</li></ul></li><li><h3>TEEP Intern — Analog/Mixed-Signal IC Design</h3><p class="sub">National Taiwan University of Science and Technology · Taipei, Taiwan</p><p class="mono-meta">Jul 2024 – Dec 2024</p><ul class="hl"><li>Designed a 12-bit time-domain ADC in 180 nm technology.</li><li>Learned Cadence and Synopsys IC design flows and APR techniques.</li></ul></li><li><h3>Laboratory Coordinator</h3><p class="sub">Microelectronics and Embedded Systems Laboratory, ITS · Surabaya, Indonesia</p><p class="mono-meta">Jul 2023 – Feb 2025</p><ul class="hl"><li>Assisted students with electrical circuits, digital systems, and electronics practicums.</li><li>Worked in the research and training division to organize training and research-competition programs.</li></ul></li></ol>
+    <div class="sec-head rv"><span class="idx" aria-hidden="true">02</span><h2 id="experience-h">Experience</h2></div>
+<ol class="timeline"><li class="rv"><h3>Laboratory Member / Analog IC Design Researcher</h3><p class="sub">Analog IC Laboratory, NTUST · Taipei, Taiwan</p><p class="mono-meta">Aug 2025 – Present</p><ul class="hl"><li>Researching high-resolution, ultra-low-power time-domain SAR ADCs.</li><li>Working across analog/mixed-signal IC design and performance optimization.</li></ul></li><li class="rv"><h3>Research Assistant</h3><p class="sub">Semiconductor Flagship Research Program, ITS · Surabaya, Indonesia</p><p class="mono-meta">Sep 2024 – Present</p><ul class="hl"><li>Improved SAR ADC design target from 10-bit to 12-bit using differential input.</li><li>Reduced ADC power consumption by more than 30% through a time-domain comparator approach.</li><li>Design submitted for SkyWater 130 nm tapeout.</li></ul></li><li class="rv"><h3>TEEP Intern — Analog/Mixed-Signal IC Design</h3><p class="sub">National Taiwan University of Science and Technology · Taipei, Taiwan</p><p class="mono-meta">Jul 2024 – Dec 2024</p><ul class="hl"><li>Designed a 12-bit time-domain ADC in 180 nm technology.</li><li>Learned Cadence and Synopsys IC design flows and APR techniques.</li></ul></li><li class="rv"><h3>Laboratory Coordinator</h3><p class="sub">Microelectronics and Embedded Systems Laboratory, ITS · Surabaya, Indonesia</p><p class="mono-meta">Jul 2023 – Feb 2025</p><ul class="hl"><li>Assisted students with electrical circuits, digital systems, and electronics practicums.</li><li>Worked in the research and training division to organize training and research-competition programs.</li></ul></li></ol>
   </div>
 </section>
 <section id="projects" aria-labelledby="projects-h">
   <div class="wrap">
-    <div class="sec-head"><span class="idx" aria-hidden="true">03</span><h2 id="projects-h">Projects</h2></div>
-<div class="cards"><article class="card"><h3>Field Programmable Mixed-Signal Array (FPMA)</h3><p class="tags"><span class="badge">IEEE SSCS PICO Chipathon 2025</span><span class="badge">Track M6 Leader</span><span class="badge">GF180MCU</span><span class="badge">May 2025 – Nov 2025</span></p><p><span class="badge status ok">Tapeout completed</span></p><ul class="hl"><li>Designed a 16 x 70 switch matrix for flexible routing of FETs, current mirrors, and OTAs.</li><li>Integrated a tinyFPGA with 4 CLBs on-die.</li><li>Led architecture, schematic, top-level layout, and DRC/LVS verification.</li></ul></article><article class="card"><h3>10-bit Time-Domain SAR ADC for Biomedical PPG Acquisition</h3><p class="tags"><span class="badge">Tiny Tapeout ttsky25b</span><span class="badge">SkyWater 130 nm (Sky130)</span></p><p><span class="badge status ok">Fabricated</span></p><p class="mono-meta metric-basis">Post-layout simulation</p><ul class="chips"><li>10-bit</li><li>Power 23.25 µW</li><li>Conversion time 5.2 µs</li><li>ENOB 6.44 bit</li><li>SNR 41.03 dB</li></ul><div class="btns"><a class="btn" href="https://tinytapeout.com/chips/ttsky25b/tt_um_tadc_its" target="_blank" rel="noopener">Tiny Tapeout page <svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a><a class="btn" href="https://github.com/mthudaa/its_10b_tadc" target="_blank" rel="noopener">Source repository <svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div></article><article class="card"><h3>10-bit Time-Domain SAR ADC</h3><p class="tags"><span class="badge">UNIC-CASS 2024 / IEEE CASS</span><span class="badge">SkyWater 130 nm (Sky130)</span><span class="badge">Apr 2024 – May 2025</span></p><p><span class="badge status warn">Passed tapeout review; fabrication did not complete after vendor shutdown</span></p><ul class="hl"><li>Designed using an open-source EDA flow.</li><li>Team reported as the only Indonesian delegation to pass the tapeout review phase.</li></ul></article></div>
+    <div class="sec-head rv"><span class="idx" aria-hidden="true">03</span><h2 id="projects-h">Projects</h2></div>
+<div class="cards"><article class="card rv"><h3>Field Programmable Mixed-Signal Array (FPMA)</h3><p class="tags"><span class="badge">IEEE SSCS PICO Chipathon 2025</span><span class="badge">Track M6 Leader</span><span class="badge">GF180MCU</span><span class="badge">May 2025 – Nov 2025</span></p><p><span class="badge status ok">Tapeout completed</span></p><ul class="hl"><li>Designed a 16 x 70 switch matrix for flexible routing of FETs, current mirrors, and OTAs.</li><li>Integrated a tinyFPGA with 4 CLBs on-die.</li><li>Led architecture, schematic, top-level layout, and DRC/LVS verification.</li></ul></article><article class="card rv"><h3>10-bit Time-Domain SAR ADC for Biomedical PPG Acquisition</h3><p class="tags"><span class="badge">Tiny Tapeout ttsky25b</span><span class="badge">SkyWater 130 nm (Sky130)</span></p><p><span class="badge status ok">Fabricated</span></p><p class="mono-meta metric-basis">Post-layout simulation</p><ul class="chips"><li>10-bit</li><li>Power 23.25 µW</li><li>Conversion time 5.2 µs</li><li>ENOB 6.44 bit</li><li>SNR 41.03 dB</li></ul><div class="btns"><a class="btn" href="https://tinytapeout.com/chips/ttsky25b/tt_um_tadc_its" target="_blank" rel="noopener">Tiny Tapeout page <svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a><a class="btn" href="https://github.com/mthudaa/its_10b_tadc" target="_blank" rel="noopener">Source repository <svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div></article><article class="card rv"><h3>10-bit Time-Domain SAR ADC</h3><p class="tags"><span class="badge">UNIC-CASS 2024 / IEEE CASS</span><span class="badge">SkyWater 130 nm (Sky130)</span><span class="badge">Apr 2024 – May 2025</span></p><p><span class="badge status warn">Passed tapeout review; fabrication did not complete after vendor shutdown</span></p><ul class="hl"><li>Designed using an open-source EDA flow.</li><li>Team reported as the only Indonesian delegation to pass the tapeout review phase.</li></ul></article></div>
   </div>
 </section>
 <section id="recognition" aria-labelledby="recognition-h">
   <div class="wrap">
-    <div class="sec-head"><span class="idx" aria-hidden="true">04</span><h2 id="recognition-h">Publication &amp; Awards</h2></div>
-<p class="group-label">Publication</p><div class="cards"><article class="card"><h3>A Time-Domain Comparator-Based 10-Bit SAR-ADC Design for Photoplethysmogram Signal Recording using Skywater 130 nm and Open-Source Tools</h3><p class="sub"><strong>M. T. Huda</strong>, A. N. Irfansyah</p><p class="mono-meta">2025 International Symposium on Intelligent Signal Processing and Communication Systems (ISPACS)</p></article></div><p class="more"><a href="https://scholar.google.com/citations?user=59okjaEAAAAJ" target="_blank" rel="noopener">All publications on Google Scholar <svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></p><p class="group-label spaced">Awards</p><div class="cards three"><article class="card"><h3>IEEE SSCS PICO Chipathon 2025 — Track M6 Leader</h3><p class="mono-meta">2025</p><p>FPMA tapeout completed in GF180MCU</p></article><article class="card"><h3>UNIC-CASS 2024</h3><p class="mono-meta">2024</p><p>Passed tapeout review phase</p></article><article class="card"><h3>Silver Medal</h3><p class="mono-meta">PIMNAS 36th / National Student Scientific Week · 2023</p><p>Non-invasive hemoglobin detector using embedded AI on STM32 for anemia prediction in patients with systemic lupus erythematosus</p></article></div>
+    <div class="sec-head rv"><span class="idx" aria-hidden="true">04</span><h2 id="recognition-h">Publication &amp; Awards</h2></div>
+<p class="group-label">Publication</p><div class="cards"><article class="card rv"><h3>A Time-Domain Comparator-Based 10-Bit SAR-ADC Design for Photoplethysmogram Signal Recording using Skywater 130 nm and Open-Source Tools</h3><p class="sub"><strong>M. T. Huda</strong>, A. N. Irfansyah</p><p class="mono-meta">2025 International Symposium on Intelligent Signal Processing and Communication Systems (ISPACS)</p></article></div><p class="more"><a href="https://scholar.google.com/citations?user=59okjaEAAAAJ" target="_blank" rel="noopener">All publications on Google Scholar <svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></p><p class="group-label spaced">Awards</p><div class="cards three"><article class="card rv"><h3>IEEE SSCS PICO Chipathon 2025 — Track M6 Leader</h3><p class="mono-meta">2025</p><p>FPMA tapeout completed in GF180MCU</p></article><article class="card rv"><h3>UNIC-CASS 2024</h3><p class="mono-meta">2024</p><p>Passed tapeout review phase</p></article><article class="card rv"><h3>Silver Medal</h3><p class="mono-meta">PIMNAS 36th / National Student Scientific Week · 2023</p><p>Non-invasive hemoglobin detector using embedded AI on STM32 for anemia prediction in patients with systemic lupus erythematosus</p></article></div>
   </div>
 </section>
 <section id="skills" aria-labelledby="skills-h">
   <div class="wrap">
-    <div class="sec-head"><span class="idx" aria-hidden="true">05</span><h2 id="skills-h">Skills</h2></div>
-<div class="skills"><div><p class="group-label">Analog &amp; mixed-signal</p><ul class="chips"><li>SAR ADC</li><li>time-domain ADC</li><li>TDC</li><li>bandgap</li><li>op-amp</li><li>comparator</li><li>switch matrix</li><li>FPMA</li></ul></div><div><p class="group-label">EDA — open source</p><ul class="chips"><li>Xschem</li><li>Ngspice</li><li>Magic</li><li>KLayout</li><li>Netgen</li><li>OpenLane</li><li>Caravel</li></ul></div><div><p class="group-label">EDA — commercial</p><ul class="chips"><li>Cadence</li><li>Synopsys</li></ul></div><div><p class="group-label">Design &amp; verification</p><ul class="chips"><li>Custom analog layout</li><li>floorplanning</li><li>DRC/LVS</li><li>parasitic extraction</li><li>PVT analysis</li><li>Monte Carlo simulation</li><li>pre/post-layout simulation</li></ul></div><div><p class="group-label">Programming &amp; HDL</p><ul class="chips"><li>Python</li><li>MATLAB</li><li>C/C++</li><li>Tcl</li><li>Verilog</li><li>Verilog-A</li><li>VHDL</li></ul></div><div><p class="group-label">PDK experience</p><ul class="chips"><li>SkyWater 130 nm (Sky130)</li><li>GF180MCU</li><li>CMOS 130 nm</li><li>CMOS 180 nm</li></ul></div><div><p class="group-label">Lab equipment</p><ul class="chips"><li>Oscilloscope</li><li>spectrum analyzer</li><li>signal generator</li><li>SMU</li></ul></div><div><p class="group-label">Languages</p><ul class="chips"><li>Indonesian (Native)</li><li>English (Professional)</li><li>Mandarin Chinese (Learning)</li></ul></div></div>
+    <div class="sec-head rv"><span class="idx" aria-hidden="true">05</span><h2 id="skills-h">Skills</h2></div>
+<div class="skills"><div class="rv"><p class="group-label">Analog &amp; mixed-signal</p><ul class="chips"><li>SAR ADC</li><li>time-domain ADC</li><li>TDC</li><li>bandgap</li><li>op-amp</li><li>comparator</li><li>switch matrix</li><li>FPMA</li></ul></div><div class="rv"><p class="group-label">EDA — open source</p><ul class="chips"><li>Xschem</li><li>Ngspice</li><li>Magic</li><li>KLayout</li><li>Netgen</li><li>OpenLane</li><li>Caravel</li></ul></div><div class="rv"><p class="group-label">EDA — commercial</p><ul class="chips"><li>Cadence</li><li>Synopsys</li></ul></div><div class="rv"><p class="group-label">Design &amp; verification</p><ul class="chips"><li>Custom analog layout</li><li>floorplanning</li><li>DRC/LVS</li><li>parasitic extraction</li><li>PVT analysis</li><li>Monte Carlo simulation</li><li>pre/post-layout simulation</li></ul></div><div class="rv"><p class="group-label">Programming &amp; HDL</p><ul class="chips"><li>Python</li><li>MATLAB</li><li>C/C++</li><li>Tcl</li><li>Verilog</li><li>Verilog-A</li><li>VHDL</li></ul></div><div class="rv"><p class="group-label">PDK experience</p><ul class="chips"><li>SkyWater 130 nm (Sky130)</li><li>GF180MCU</li><li>CMOS 130 nm</li><li>CMOS 180 nm</li></ul></div><div class="rv"><p class="group-label">Lab equipment</p><ul class="chips"><li>Oscilloscope</li><li>spectrum analyzer</li><li>signal generator</li><li>SMU</li></ul></div><div class="rv"><p class="group-label">Languages</p><ul class="chips"><li>Indonesian (Native)</li><li>English (Professional)</li><li>Mandarin Chinese (Learning)</li></ul></div></div>
   </div>
 </section>
 <section id="contact" aria-labelledby="contact-h">
   <div class="wrap">
-    <div class="sec-head"><span class="idx" aria-hidden="true">06</span><h2 id="contact-h">Contact</h2></div>
-<div class="card contact">
+    <div class="sec-head rv"><span class="idx" aria-hidden="true">06</span><h2 id="contact-h">Contact</h2></div>
+<div class="card contact rv">
       <ul class="contact-list">
         <li><svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> <a href="mailto:mthudaa@proton.me">mthudaa@proton.me</a></li>
         <li><svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> Taipei, Taiwan</li>
@@ -295,12 +336,20 @@ footer a{color:var(--muted)}
 </footer>
 <script>
 (function(){
-  var root=document.documentElement,btn=document.getElementById('theme-toggle'),
-      meta=document.querySelector('meta[name="theme-color"]'),COLORS={dark:'#0a1016',light:'#f4f7f9'};
+  var root=document.documentElement,
+      btn=document.getElementById('theme-toggle'),
+      mbtn=document.getElementById('motion-toggle'),
+      meta=document.querySelector('meta[name="theme-color"]'),
+      COLORS={dark:'#0a1016',light:'#f4f7f9'},
+      themeCbs=[],motionCbs=[];
+  function motionOn(){return root.dataset.motion==='on'}
+
+  /* theme */
   function apply(t){
     root.dataset.theme=t;
     if(meta)meta.setAttribute('content',COLORS[t]);
     if(btn)btn.setAttribute('aria-label','Switch to '+(t==='dark'?'light':'dark')+' theme');
+    themeCbs.forEach(function(f){f()});
   }
   if(btn){
     btn.hidden=false;
@@ -311,6 +360,21 @@ footer a{color:var(--muted)}
       try{localStorage.setItem('theme',t)}catch(e){}
     });
   }
+
+  /* motion on/off: starts off for prefers-reduced-motion, remembered once chosen */
+  function setMotion(on,store){
+    root.dataset.motion=on?'on':'off';
+    if(mbtn)mbtn.setAttribute('aria-label',(on?'Pause':'Play')+' animations');
+    if(store){try{localStorage.setItem('motion',on?'on':'off')}catch(e){}}
+    motionCbs.forEach(function(f){f(on)});
+  }
+  if(mbtn){
+    mbtn.hidden=false;
+    mbtn.setAttribute('aria-label',(motionOn()?'Pause':'Play')+' animations');
+    mbtn.addEventListener('click',function(){setMotion(!motionOn(),true)});
+  }
+
+  /* section nav highlight */
   var links=[].slice.call(document.querySelectorAll('.links a')),map={};
   links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
   function setCurrent(a){
@@ -329,6 +393,182 @@ footer a{color:var(--muted)}
     window.addEventListener('scroll',function(){
       if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)setCurrent(links[links.length-1]);
     },{passive:true});
+  }
+
+  /* scroll reveal: .rv elements fade up once; the hiding itself is CSS and only applies while motion is on */
+  var rv=[].slice.call(document.querySelectorAll('.rv'));
+  if('IntersectionObserver' in window){
+    var rio=new IntersectionObserver(function(es){
+      var n=0;
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        e.target.style.setProperty('--d',Math.min(n++,5)*70+'ms');
+        e.target.classList.add('in');
+        rio.unobserve(e.target);
+      });
+    },{rootMargin:'0px 0px -6% 0px',threshold:0.05});
+    rv.forEach(function(el){rio.observe(el)});
+  }else{
+    rv.forEach(function(el){el.classList.add('in')});
+  }
+
+  /* metric numbers count up once when the tiles scroll into view */
+  var nums=[].slice.call(document.querySelectorAll('.num')),metricsEl=document.querySelector('.metrics');
+  function numText(el,f){return (parseFloat(el.dataset.v)*f).toFixed(+el.dataset.dec)}
+  function numsFinal(){nums.forEach(function(el){el.textContent=numText(el,1)})}
+  function countUp(){
+    var t0=null;
+    function f(t){
+      if(!motionOn()){numsFinal();return}
+      if(t0===null)t0=t;
+      var p=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-p,3);
+      nums.forEach(function(el){el.textContent=numText(el,e)});
+      if(p<1)requestAnimationFrame(f);
+    }
+    requestAnimationFrame(f);
+  }
+  if(metricsEl&&nums.length){
+    if(motionOn()&&'IntersectionObserver' in window){
+      nums.forEach(function(el){el.textContent=numText(el,0)});
+      var cio=new IntersectionObserver(function(es){
+        if(es[0].isIntersecting){cio.disconnect();countUp()}
+      },{threshold:0.4});
+      cio.observe(metricsEl);
+    }
+    motionCbs.push(function(on){if(!on)numsFinal()});
+  }
+
+  /* SAR conversion illustration: binary search, MSB first, converging on a random input */
+  var sar=document.querySelector('.sar');
+  if(sar){
+    var N=14,SW=280/N,SH=76,path=sar.querySelector('.sar-path'),vl=sar.querySelector('.sar-vin'),
+        dot=sar.querySelector('.sar-dot'),cells=[].slice.call(sar.querySelectorAll('.sar-bits i')),
+        vin=0.62,acc=0,k=0,d='',timer=0,seen=false;
+    function Y(v){return Math.round((SH-6-(v-0.1)/0.8*(SH-12))*10)/10}
+    function clearAll(v){
+      vin=v;acc=0;k=0;d='';
+      path.setAttribute('d','');
+      vl.setAttribute('y1',Y(v));vl.setAttribute('y2',Y(v));
+      dot.style.opacity=0;
+      cells.forEach(function(c){c.textContent='';c.className=''});
+    }
+    function stepOnce(){
+      var trial=acc+Math.pow(2,-(k+1)),bit=vin>=trial?1:0,y=Y(trial);
+      d+=(k?' V'+y+' H':'M0 '+y+' H')+((k+1)*SW);
+      path.setAttribute('d',d);
+      dot.setAttribute('cx',k*SW+SW/2);dot.setAttribute('cy',y);dot.style.opacity=1;
+      cells[k].textContent=bit;cells[k].className=bit?'b1':'b0';
+      if(bit)acc=trial;
+      k++;
+    }
+    function randVin(){return 0.18+Math.random()*0.64}
+    function tick(){
+      if(k<N){stepOnce();timer=setTimeout(tick,230)}
+      else{timer=setTimeout(function(){clearAll(randVin());tick()},2600)}
+    }
+    function stop(){clearTimeout(timer);timer=0}
+    function run(){stop();if(motionOn()&&seen&&!document.hidden){clearAll(randVin());tick()}}
+    function settle(){stop();clearAll(vin);while(k<N)stepOnce()}
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        seen=es[0].isIntersecting;
+        if(!seen)stop();else if(motionOn()&&!timer)run();
+      },{threshold:0.2}).observe(sar);
+    }
+    motionCbs.push(function(on){if(on)run();else settle()});
+    document.addEventListener('visibilitychange',function(){
+      if(document.hidden)stop();else if(motionOn()&&seen)run();
+    });
+  }
+
+  /* background: signal pulses travelling along a 32px routing grid */
+  var cv=document.getElementById('bg');
+  if(cv&&cv.getContext){
+    var ctx=cv.getContext('2d'),G=32,W=0,H=0,P=[],raf=0,last=0,running=false,
+        col=[79,209,197],base=0.55,DX=[1,0,-1,0],DY=[0,1,0,-1],rt=0;
+    function readColors(){
+      var cs=getComputedStyle(root),a=(cs.getPropertyValue('--accent')||'').trim(),
+          m=/^#([0-9a-f]{6})$/i.exec(a),b=parseFloat(cs.getPropertyValue('--pulse'));
+      if(m){var n=parseInt(m[1],16);col=[(n>>16)&255,(n>>8)&255,n&255]}
+      if(b===b)base=b;
+    }
+    function rgba(a){return 'rgba('+col[0]+','+col[1]+','+col[2]+','+a.toFixed(3)+')'}
+    function spawn(initial){
+      var x=Math.floor(Math.random()*(W/G+1))*G,y=Math.floor(Math.random()*(H/G+1))*G;
+      return {x:x,y:y,dir:Math.floor(Math.random()*4),to:G,sp:38+Math.random()*52,len:90+Math.random()*110,
+              age:initial?-Math.random()*4:0,life:7+Math.random()*7,c:[[x,y]]};
+    }
+    function size(){
+      var dpr=Math.min(window.devicePixelRatio||1,2);
+      W=window.innerWidth;H=window.innerHeight;
+      cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      var target=Math.max(4,Math.min(14,Math.round(W*H/95000)));
+      P=[];for(var i=0;i<target;i++)P.push(spawn(true));
+    }
+    function move(p,dt){
+      var dist=p.sp*dt;
+      while(dist>0){
+        var m=Math.min(dist,p.to);
+        p.x+=DX[p.dir]*m;p.y+=DY[p.dir]*m;p.to-=m;dist-=m;
+        if(p.to<=0){
+          p.to=G;
+          if(Math.random()<0.3){p.c.push([p.x,p.y]);p.dir=(p.dir+(Math.random()<0.5?1:3))%4}
+        }
+      }
+      var rem=p.len,px=p.x,py=p.y,i=p.c.length;
+      while(i>0){
+        var cx=p.c[i-1][0],cy=p.c[i-1][1],sl=Math.abs(px-cx)+Math.abs(py-cy);
+        if(sl>=rem)break;
+        rem-=sl;px=cx;py=cy;i--;
+      }
+      if(i>1)p.c.splice(0,i-1);
+    }
+    function draw(p,env){
+      var a=base*env,hx=p.x+0.5,hy=p.y+0.5,rem=p.len,px=hx,py=hy,i=p.c.length,acc=0;
+      ctx.lineWidth=1.5;ctx.lineCap='round';
+      while(i>0&&rem>0){
+        var cx=p.c[i-1][0]+0.5,cy=p.c[i-1][1]+0.5,sl=Math.abs(px-cx)+Math.abs(py-cy),use=Math.min(sl,rem);
+        if(sl>0){
+          var ex=px+(cx-px)*use/sl,ey=py+(cy-py)*use/sl,
+              g=ctx.createLinearGradient(px,py,ex,ey);
+          g.addColorStop(0,rgba(a*(1-acc/p.len)));
+          g.addColorStop(1,rgba(a*(1-(acc+use)/p.len)));
+          ctx.strokeStyle=g;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(ex,ey);ctx.stroke();
+        }
+        rem-=use;acc+=use;px=cx;py=cy;i--;
+        if(use<sl)break;
+      }
+      ctx.fillStyle=rgba(Math.min(1,a*1.6));ctx.beginPath();ctx.arc(hx,hy,2.2,0,6.2832);ctx.fill();
+      ctx.fillStyle=rgba(a*0.25);ctx.beginPath();ctx.arc(hx,hy,6,0,6.2832);ctx.fill();
+    }
+    function frame(t){
+      raf=requestAnimationFrame(frame);
+      if(t-last<33)return;
+      var dt=Math.min(0.1,(t-last)/1000);last=t;
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<P.length;i++){
+        var p=P[i];p.age+=dt;
+        if(p.age<0)continue;
+        if(p.age>p.life||p.x<-G||p.x>W+G||p.y<-G||p.y>H+G){P[i]=spawn(false);continue}
+        move(p,dt);
+        draw(p,Math.max(0,Math.min(1,p.age/0.8,(p.life-p.age)/1.2)));
+      }
+    }
+    function startBg(){
+      if(running||!motionOn()||document.hidden)return;
+      running=true;last=0;raf=requestAnimationFrame(frame);
+    }
+    function stopBg(clear){
+      running=false;cancelAnimationFrame(raf);
+      if(clear)ctx.clearRect(0,0,W,H);
+    }
+    readColors();size();
+    themeCbs.push(readColors);
+    motionCbs.push(function(on){if(on)startBg();else stopBg(true)});
+    window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(size,150)});
+    document.addEventListener('visibilitychange',function(){if(document.hidden)stopBg(false);else startBg()});
+    startBg();
   }
 })();
 </script>

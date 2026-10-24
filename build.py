@@ -43,6 +43,8 @@ ICONS = {
     "lab": '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/>',
     "sun": '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
     "moon": '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+    "pause": '<path d="M8 5v14M16 5v14"/>',
+    "play": '<path d="M7 4.5v15l12-7.5z"/>',
     "out": '<path d="M7 17 17 7M8 7h9v9"/>',
 }
 
@@ -102,10 +104,48 @@ def status_class(status):
     return ""
 
 
+def num(value):
+    """A metric value the page can count up to; the text is already the final value."""
+    s = f"{value:g}"
+    dec = len(s.split(".")[1]) if "." in s else 0
+    return f'<span class="num" data-v="{s}" data-dec="{dec}">{s}</span>'
+
+
+SAR_BITS, SAR_W, SAR_H, SAR_VIN = 14, 280, 76, 0.62
+
+
+def sar_demo():
+    """Static end state of the SAR binary-search illustration (the page script animates it).
+
+    Same maths as the script: trial level = accumulated code + 2^-(k+1); keep the bit if vin >= trial.
+    """
+    sw = SAR_W / SAR_BITS
+
+    def y(v):
+        return round(SAR_H - 6 - (v - 0.1) / 0.8 * (SAR_H - 12), 1)
+
+    acc, d, bits, trial = 0.0, "", [], 0.0
+    for k in range(SAR_BITS):
+        trial = acc + 2 ** -(k + 1)
+        bit = 1 if SAR_VIN >= trial else 0
+        d += f"M0 {y(trial)} H{sw:g}" if k == 0 else f" V{y(trial)} H{(k + 1) * sw:g}"
+        bits.append(bit)
+        if bit:
+            acc = trial
+    cells = "".join(f'<i class="b{b}">{b}</i>' for b in bits)
+    return (f'<div class="sar" aria-hidden="true">'
+            f'<svg viewBox="0 0 {SAR_W} {SAR_H}" width="{SAR_W}" height="{SAR_H}">'
+            f'<line class="sar-vin" x1="0" x2="{SAR_W}" y1="{y(SAR_VIN)}" y2="{y(SAR_VIN)}"/>'
+            f'<path class="sar-path" d="{d}"/>'
+            f'<circle class="sar-dot" r="3.2" cx="{(SAR_BITS - 1) * sw + sw / 2:g}" cy="{y(trial)}"/></svg>'
+            f'<div class="sar-bits">{cells}</div>'
+            f'<p class="sar-cap">Illustration: {SAR_BITS}-step SAR binary search, MSB → LSB</p></div>')
+
+
 def section(idx, sid, title, body):
     return (f'<section id="{sid}" aria-labelledby="{sid}-h">\n'
             f'  <div class="wrap">\n'
-            f'    <div class="sec-head"><span class="idx" aria-hidden="true">{idx:02d}</span>'
+            f'    <div class="sec-head rv"><span class="idx" aria-hidden="true">{idx:02d}</span>'
             f'<h2 id="{sid}-h">{esc(title)}</h2></div>\n{body}\n  </div>\n</section>')
 
 
@@ -123,7 +163,7 @@ def render_hero(cv):
     if proj:
         m = proj["metrics"]
         tiles = "".join(
-            f'<div class="metric"><div class="v">{m[key]:g}<span class="u">{unit}</span></div>'
+            f'<div class="metric rv"><div class="v">{num(m[key])}<span class="u">{unit}</span></div>'
             f'<div class="l">{label}</div></div>'
             for key, unit, label in METRICS if key in m)
         basis = proj.get("metrics_basis", "design metrics")
@@ -133,10 +173,6 @@ def render_hero(cv):
 
     focus_html = f'<p class="focus">{esc(focus)}</p>' if focus else ""
     return f"""<section class="hero" id="about" aria-labelledby="name">
-  <svg class="trace" viewBox="0 0 360 120" width="360" height="120" aria-hidden="true">
-    <line class="target" x1="0" y1="56" x2="360" y2="56"/>
-    <path class="step" d="M0 104 H34 V28 H68 V76 H102 V46 H136 V62 H170 V52 H204 V58 H238 V55 H360"/>
-  </svg>
   <div class="wrap">
     <div class="hero-grid">
       <img class="photo" src="{PHOTO}" width="{PHOTO_SIZE}" height="{PHOTO_SIZE}" alt="Portrait of {esc(p['name'])}" fetchpriority="high">
@@ -157,10 +193,13 @@ def render_hero(cv):
     </div>
     {tiles}
     {caption}
-    <div class="research-card">
-      <p class="group-label">Current research</p>
-      <p class="research-line">{esc(current['research'])}</p>
-      <p class="mono-meta">{esc(current['lab'])} · {esc(current['institution'])}</p>
+    <div class="research-card rv">
+      <div>
+        <p class="group-label">Current research</p>
+        <p class="research-line">{esc(current['research'])}</p>
+        <p class="mono-meta">{esc(current['lab'])} · {esc(current['institution'])}</p>
+      </div>
+      {sar_demo()}
     </div>
   </div>
 </section>"""
@@ -172,7 +211,7 @@ def render_education(cv):
         facts = [("Advisor", e.get("advisor")), ("GPA", e.get("gpa")), ("Thesis", e.get("thesis"))]
         dl = "".join(f"<dt>{k}</dt><dd>{esc(v)}</dd>" for k, v in facts if v)
         cards.append(
-            f'<article class="card"><h3>{esc(e["degree"])} in {esc(e["field"])}</h3>'
+            f'<article class="card rv"><h3>{esc(e["degree"])} in {esc(e["field"])}</h3>'
             f'<p class="sub">{esc(e["institution"])} · {esc(e["location"])}</p>'
             f'<p class="mono-meta">{span(e["start"], e.get("end"), e.get("expected_end"))}</p>'
             f'<dl class="facts">{dl}</dl></article>')
@@ -183,7 +222,7 @@ def render_experience(cv):
     items = []
     for x in sorted(cv["experience"], key=lambda x: x["start"], reverse=True):
         items.append(
-            f'<li><h3>{esc(x["role"])}</h3>'
+            f'<li class="rv"><h3>{esc(x["role"])}</h3>'
             f'<p class="sub">{esc(x["organization"])} · {esc(x["location"])}</p>'
             f'<p class="mono-meta">{span(x["start"], x.get("end"))}</p>'
             f'{bullets(x.get("highlights"))}</li>')
@@ -215,7 +254,7 @@ def render_projects(cv):
             if p.get(key)]
         link = f'<div class="btns">{"".join(buttons)}</div>' if buttons else ""
         cards.append(
-            f'<article class="card"><h3>{esc(p["name"])}</h3>'
+            f'<article class="card rv"><h3>{esc(p["name"])}</h3>'
             f'<p class="tags">{"".join(tags)}</p>{status}{bullets(p.get("highlights"))}'
             f'{metric_chips}{link}</article>')
     return '<div class="cards">' + "".join(cards) + "</div>"
@@ -227,7 +266,7 @@ def render_recognition(cv):
         authors = ", ".join(
             f"<strong>{esc(a)}</strong>" if "Huda" in a else esc(a) for a in pub["authors"])
         pubs.append(
-            f'<article class="card"><h3>{esc(pub["title"])}</h3>'
+            f'<article class="card rv"><h3>{esc(pub["title"])}</h3>'
             f'<p class="sub">{authors}</p>'
             f'<p class="mono-meta">{esc(pub["venue"])}'
             f'{"" if str(pub["year"]) in pub["venue"] else ", " + esc(pub["year"])}</p></article>')
@@ -236,7 +275,7 @@ def render_recognition(cv):
         head = " · ".join(str(v) for v in (a.get("event"), a["year"]) if v)
         body = a.get("project") or a.get("result") or ""
         awards.append(
-            f'<article class="card"><h3>{esc(a["name"])}</h3>'
+            f'<article class="card rv"><h3>{esc(a["name"])}</h3>'
             f'<p class="mono-meta">{esc(head)}</p>'
             f'{f"<p>{esc(body)}</p>" if body else ""}</article>')
     scholar = cv["profile"]["links"]["google_scholar"]
@@ -258,14 +297,14 @@ def render_skills(cv):
         ("Languages", [f'{l["language"]} ({l["level"]})' for l in cv["languages"]]),
     ]
     return ('<div class="skills">' + "".join(
-        f'<div><p class="group-label">{esc(label)}</p>{chips(items)}</div>' for label, items in groups)
+        f'<div class="rv"><p class="group-label">{esc(label)}</p>{chips(items)}</div>' for label, items in groups)
         + "</div>")
 
 
 def render_contact(cv):
     p = cv["profile"]
     c, links = p["contact"], p["links"]
-    return f"""<div class="card contact">
+    return f"""<div class="card contact rv">
       <ul class="contact-list">
         <li>{icon('mail')} <a href="mailto:{esc(c['email'])}">{esc(c['email'])}</a></li>
         <li>{icon('pin')} {esc(p['location'])}</li>
@@ -293,14 +332,14 @@ RENDER = {
 
 LIGHT_VARS = """--bg:#f4f7f9; --bg-soft:#eaf0f4; --card:#ffffff; --line:#d5dee5; --line-strong:#b7c5d0;
     --text:#14212b; --muted:#475a69; --accent:#0a7771; --accent-ink:#ffffff; --accent-soft:rgba(10,119,113,.10);
-    --warn:#8a5a00; --ok:#1f7a45; --grid:rgba(10,119,113,.09); --shadow:0 1px 2px rgba(20,33,43,.06);"""
+    --warn:#8a5a00; --ok:#1f7a45; --grid:rgba(10,119,113,.09); --pulse:.42; --shadow:0 1px 2px rgba(20,33,43,.06);"""
 
 CSS = """
 :root{
   color-scheme:dark;
   --bg:#0a1016; --bg-soft:#0e161e; --card:#101a23; --line:#1d2b37; --line-strong:#2a3d4d;
   --text:#dde7ee; --muted:#93a8b8; --accent:#4fd1c5; --accent-ink:#04201e; --accent-soft:rgba(79,209,197,.10);
-  --warn:#f2b45c; --ok:#6fd49a; --grid:rgba(79,209,197,.07); --shadow:0 8px 24px rgba(0,0,0,.25);
+  --warn:#f2b45c; --ok:#6fd49a; --grid:rgba(79,209,197,.07); --pulse:.55; --shadow:0 8px 24px rgba(0,0,0,.25);
   --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
@@ -340,16 +379,8 @@ img{max-width:100%}
 
 /* hero */
 .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);padding:48px 0 40px;scroll-margin-top:90px}
-.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:32px 32px;-webkit-mask-image:linear-gradient(180deg,#000 35%,transparent);mask-image:linear-gradient(180deg,#000 35%,transparent)}
 .hero .wrap{position:relative}
-.trace{display:none;position:absolute;right:24px;top:34px;opacity:.55;pointer-events:none}
-.trace .step{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.4s ease-out .3s forwards}
-.trace .target{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 5;opacity:.7}
-@keyframes draw{to{stroke-dashoffset:0}}
 @keyframes blink{50%{opacity:0}}
-@media (min-width:1240px){.trace{display:block}}
 .hero-grid{display:grid;gap:26px;align-items:center}
 .photo{width:152px;height:152px;border-radius:50%;object-fit:cover;object-position:50% 20%;background:#fff;
   border:2px solid var(--line-strong);box-shadow:0 0 0 6px var(--accent-soft)}
@@ -374,9 +405,49 @@ h1{margin:0 0 8px;font-size:clamp(2rem,5.2vw,3.2rem);line-height:1.1;letter-spac
 .metric .u{margin-left:4px;font-size:.55em;font-weight:600;color:var(--muted)}
 .metric .l{margin-top:6px;font:12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .metrics-cap{margin:10px 0 0;font:12px/1.5 var(--mono);color:var(--muted)}
-.research-card{margin-top:26px;padding:18px 22px;border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:10px;background:var(--card)}
+.research-card{display:grid;gap:18px;align-items:center;margin-top:26px;padding:18px 22px;border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:10px;background:var(--card)}
+@media (min-width:760px){.research-card{grid-template-columns:1fr minmax(260px,330px);gap:32px}}
 .research-card .group-label{margin:0 0 6px}
 .research-line{margin:0 0 6px;font-size:1.15rem;font-weight:600;line-height:1.4}
+
+/* background grid + signal pulses (canvas is drawn by the page script) */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+
+/* motion: everything below only applies while html[data-motion="on"] */
+.tools{display:flex;gap:8px}
+.m-play{display:none}
+html[data-motion="off"] .m-pause{display:none}
+html[data-motion="off"] .m-play{display:inline}
+.rv{transition:opacity .6s ease var(--d,0ms),transform .6s cubic-bezier(.2,.7,.2,1) var(--d,0ms),border-color .25s,box-shadow .25s}
+html[data-motion="on"] .rv:not(.in){opacity:0;transform:translateY(16px)}
+.card:hover{border-color:var(--line-strong)}
+@supports (background:color-mix(in srgb,red,blue)){.card:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+html[data-motion="on"] .hero-grid>div>*{animation:rise .75s cubic-bezier(.2,.7,.2,1) both}
+html[data-motion="on"] .hero-grid>div>:nth-child(2){animation-delay:.08s}
+html[data-motion="on"] .hero-grid>div>:nth-child(3){animation-delay:.16s}
+html[data-motion="on"] .hero-grid>div>:nth-child(4){animation-delay:.24s}
+html[data-motion="on"] .hero-grid>div>:nth-child(5){animation-delay:.32s}
+html[data-motion="on"] .hero-grid>div>:nth-child(6){animation-delay:.4s}
+html[data-motion="on"] .hero-grid>div>:nth-child(7){animation-delay:.48s}
+html[data-motion="on"] .photo{animation:pop .8s cubic-bezier(.2,.7,.2,1) both}
+
+/* SAR conversion illustration inside the research card */
+.sar{width:100%;max-width:340px;justify-self:end}
+.sar svg{display:block;width:100%;height:auto;overflow:visible}
+.sar-vin{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 4;vector-effect:non-scaling-stroke}
+.sar-path{fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.sar-dot{fill:var(--accent);filter:drop-shadow(0 0 4px var(--accent))}
+.sar-bits{display:grid;grid-template-columns:repeat(14,1fr);gap:3px;margin-top:8px}
+.sar-bits i{min-height:24px;padding:6px 0 5px;border:1px solid var(--line);border-radius:4px;background:var(--bg-soft);
+  font:normal 11px/1 var(--mono);text-align:center;color:var(--muted)}
+.sar-bits i.b1{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.sar-bits i.b0{color:var(--text)}
+.sar-cap{margin:8px 0 0;font:11px/1.4 var(--mono);color:var(--muted)}
 
 /* sections */
 section{padding:54px 0 0;scroll-margin-top:96px}
@@ -424,14 +495,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 2
 footer a{color:var(--muted)}
 
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .trace .step{stroke-dashoffset:0}
+  html:not([data-motion="on"]){scroll-behavior:auto}
+  html:not([data-motion="on"]) *,html:not([data-motion="on"]) *::before,html:not([data-motion="on"]) *::after{animation:none!important;transition:none!important}
 }
+html[data-motion="off"]{scroll-behavior:auto}
+html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="off"] *::after{animation:none!important;transition:none!important}
 @media (max-width:420px){.wrap{padding:0 16px}.card{padding:18px}}
 @media print{
   :root,:root[data-theme]{--bg:#fff;--bg-soft:#fff;--card:#fff;--line:#ccc;--line-strong:#999;--text:#000;--muted:#333;--accent:#000;--accent-soft:transparent;--grid:transparent;--shadow:none}
-  .nav,.trace,.skip,.btns,.prompt,.hero::before{display:none!important}
+  .nav,#bg,.sar,.skip,.btns,.prompt,body::before{display:none!important}
+  .rv{opacity:1!important;transform:none!important}
+  .research-card{grid-template-columns:1fr}
   body{font-size:11pt}
   section{padding-top:18px}
   .card,.timeline>li,.metric,.research-card{break-inside:avoid}
@@ -440,20 +514,29 @@ footer a{color:var(--muted)}
 """
 
 HEAD_SCRIPT = (
-    "(function(){var r=document.documentElement,t=null;"
-    "try{t=localStorage.getItem('theme')}catch(e){}"
+    "(function(){var r=document.documentElement,t=null,m=null;"
+    "try{t=localStorage.getItem('theme');m=localStorage.getItem('motion')}catch(e){}"
     "if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}"
-    "r.dataset.theme=t})();"
+    "if(m!=='on'&&m!=='off'){m=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on'}"
+    "r.dataset.theme=t;r.dataset.motion=m})();"
 )
 
 BODY_SCRIPT = """
 (function(){
-  var root=document.documentElement,btn=document.getElementById('theme-toggle'),
-      meta=document.querySelector('meta[name="theme-color"]'),COLORS={dark:'#0a1016',light:'#f4f7f9'};
+  var root=document.documentElement,
+      btn=document.getElementById('theme-toggle'),
+      mbtn=document.getElementById('motion-toggle'),
+      meta=document.querySelector('meta[name="theme-color"]'),
+      COLORS={dark:'#0a1016',light:'#f4f7f9'},
+      themeCbs=[],motionCbs=[];
+  function motionOn(){return root.dataset.motion==='on'}
+
+  /* theme */
   function apply(t){
     root.dataset.theme=t;
     if(meta)meta.setAttribute('content',COLORS[t]);
     if(btn)btn.setAttribute('aria-label','Switch to '+(t==='dark'?'light':'dark')+' theme');
+    themeCbs.forEach(function(f){f()});
   }
   if(btn){
     btn.hidden=false;
@@ -464,6 +547,21 @@ BODY_SCRIPT = """
       try{localStorage.setItem('theme',t)}catch(e){}
     });
   }
+
+  /* motion on/off: starts off for prefers-reduced-motion, remembered once chosen */
+  function setMotion(on,store){
+    root.dataset.motion=on?'on':'off';
+    if(mbtn)mbtn.setAttribute('aria-label',(on?'Pause':'Play')+' animations');
+    if(store){try{localStorage.setItem('motion',on?'on':'off')}catch(e){}}
+    motionCbs.forEach(function(f){f(on)});
+  }
+  if(mbtn){
+    mbtn.hidden=false;
+    mbtn.setAttribute('aria-label',(motionOn()?'Pause':'Play')+' animations');
+    mbtn.addEventListener('click',function(){setMotion(!motionOn(),true)});
+  }
+
+  /* section nav highlight */
   var links=[].slice.call(document.querySelectorAll('.links a')),map={};
   links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
   function setCurrent(a){
@@ -482,6 +580,182 @@ BODY_SCRIPT = """
     window.addEventListener('scroll',function(){
       if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)setCurrent(links[links.length-1]);
     },{passive:true});
+  }
+
+  /* scroll reveal: .rv elements fade up once; the hiding itself is CSS and only applies while motion is on */
+  var rv=[].slice.call(document.querySelectorAll('.rv'));
+  if('IntersectionObserver' in window){
+    var rio=new IntersectionObserver(function(es){
+      var n=0;
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        e.target.style.setProperty('--d',Math.min(n++,5)*70+'ms');
+        e.target.classList.add('in');
+        rio.unobserve(e.target);
+      });
+    },{rootMargin:'0px 0px -6% 0px',threshold:0.05});
+    rv.forEach(function(el){rio.observe(el)});
+  }else{
+    rv.forEach(function(el){el.classList.add('in')});
+  }
+
+  /* metric numbers count up once when the tiles scroll into view */
+  var nums=[].slice.call(document.querySelectorAll('.num')),metricsEl=document.querySelector('.metrics');
+  function numText(el,f){return (parseFloat(el.dataset.v)*f).toFixed(+el.dataset.dec)}
+  function numsFinal(){nums.forEach(function(el){el.textContent=numText(el,1)})}
+  function countUp(){
+    var t0=null;
+    function f(t){
+      if(!motionOn()){numsFinal();return}
+      if(t0===null)t0=t;
+      var p=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-p,3);
+      nums.forEach(function(el){el.textContent=numText(el,e)});
+      if(p<1)requestAnimationFrame(f);
+    }
+    requestAnimationFrame(f);
+  }
+  if(metricsEl&&nums.length){
+    if(motionOn()&&'IntersectionObserver' in window){
+      nums.forEach(function(el){el.textContent=numText(el,0)});
+      var cio=new IntersectionObserver(function(es){
+        if(es[0].isIntersecting){cio.disconnect();countUp()}
+      },{threshold:0.4});
+      cio.observe(metricsEl);
+    }
+    motionCbs.push(function(on){if(!on)numsFinal()});
+  }
+
+  /* SAR conversion illustration: binary search, MSB first, converging on a random input */
+  var sar=document.querySelector('.sar');
+  if(sar){
+    var N=14,SW=280/N,SH=76,path=sar.querySelector('.sar-path'),vl=sar.querySelector('.sar-vin'),
+        dot=sar.querySelector('.sar-dot'),cells=[].slice.call(sar.querySelectorAll('.sar-bits i')),
+        vin=0.62,acc=0,k=0,d='',timer=0,seen=false;
+    function Y(v){return Math.round((SH-6-(v-0.1)/0.8*(SH-12))*10)/10}
+    function clearAll(v){
+      vin=v;acc=0;k=0;d='';
+      path.setAttribute('d','');
+      vl.setAttribute('y1',Y(v));vl.setAttribute('y2',Y(v));
+      dot.style.opacity=0;
+      cells.forEach(function(c){c.textContent='';c.className=''});
+    }
+    function stepOnce(){
+      var trial=acc+Math.pow(2,-(k+1)),bit=vin>=trial?1:0,y=Y(trial);
+      d+=(k?' V'+y+' H':'M0 '+y+' H')+((k+1)*SW);
+      path.setAttribute('d',d);
+      dot.setAttribute('cx',k*SW+SW/2);dot.setAttribute('cy',y);dot.style.opacity=1;
+      cells[k].textContent=bit;cells[k].className=bit?'b1':'b0';
+      if(bit)acc=trial;
+      k++;
+    }
+    function randVin(){return 0.18+Math.random()*0.64}
+    function tick(){
+      if(k<N){stepOnce();timer=setTimeout(tick,230)}
+      else{timer=setTimeout(function(){clearAll(randVin());tick()},2600)}
+    }
+    function stop(){clearTimeout(timer);timer=0}
+    function run(){stop();if(motionOn()&&seen&&!document.hidden){clearAll(randVin());tick()}}
+    function settle(){stop();clearAll(vin);while(k<N)stepOnce()}
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        seen=es[0].isIntersecting;
+        if(!seen)stop();else if(motionOn()&&!timer)run();
+      },{threshold:0.2}).observe(sar);
+    }
+    motionCbs.push(function(on){if(on)run();else settle()});
+    document.addEventListener('visibilitychange',function(){
+      if(document.hidden)stop();else if(motionOn()&&seen)run();
+    });
+  }
+
+  /* background: signal pulses travelling along a 32px routing grid */
+  var cv=document.getElementById('bg');
+  if(cv&&cv.getContext){
+    var ctx=cv.getContext('2d'),G=32,W=0,H=0,P=[],raf=0,last=0,running=false,
+        col=[79,209,197],base=0.55,DX=[1,0,-1,0],DY=[0,1,0,-1],rt=0;
+    function readColors(){
+      var cs=getComputedStyle(root),a=(cs.getPropertyValue('--accent')||'').trim(),
+          m=/^#([0-9a-f]{6})$/i.exec(a),b=parseFloat(cs.getPropertyValue('--pulse'));
+      if(m){var n=parseInt(m[1],16);col=[(n>>16)&255,(n>>8)&255,n&255]}
+      if(b===b)base=b;
+    }
+    function rgba(a){return 'rgba('+col[0]+','+col[1]+','+col[2]+','+a.toFixed(3)+')'}
+    function spawn(initial){
+      var x=Math.floor(Math.random()*(W/G+1))*G,y=Math.floor(Math.random()*(H/G+1))*G;
+      return {x:x,y:y,dir:Math.floor(Math.random()*4),to:G,sp:38+Math.random()*52,len:90+Math.random()*110,
+              age:initial?-Math.random()*4:0,life:7+Math.random()*7,c:[[x,y]]};
+    }
+    function size(){
+      var dpr=Math.min(window.devicePixelRatio||1,2);
+      W=window.innerWidth;H=window.innerHeight;
+      cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      var target=Math.max(4,Math.min(14,Math.round(W*H/95000)));
+      P=[];for(var i=0;i<target;i++)P.push(spawn(true));
+    }
+    function move(p,dt){
+      var dist=p.sp*dt;
+      while(dist>0){
+        var m=Math.min(dist,p.to);
+        p.x+=DX[p.dir]*m;p.y+=DY[p.dir]*m;p.to-=m;dist-=m;
+        if(p.to<=0){
+          p.to=G;
+          if(Math.random()<0.3){p.c.push([p.x,p.y]);p.dir=(p.dir+(Math.random()<0.5?1:3))%4}
+        }
+      }
+      var rem=p.len,px=p.x,py=p.y,i=p.c.length;
+      while(i>0){
+        var cx=p.c[i-1][0],cy=p.c[i-1][1],sl=Math.abs(px-cx)+Math.abs(py-cy);
+        if(sl>=rem)break;
+        rem-=sl;px=cx;py=cy;i--;
+      }
+      if(i>1)p.c.splice(0,i-1);
+    }
+    function draw(p,env){
+      var a=base*env,hx=p.x+0.5,hy=p.y+0.5,rem=p.len,px=hx,py=hy,i=p.c.length,acc=0;
+      ctx.lineWidth=1.5;ctx.lineCap='round';
+      while(i>0&&rem>0){
+        var cx=p.c[i-1][0]+0.5,cy=p.c[i-1][1]+0.5,sl=Math.abs(px-cx)+Math.abs(py-cy),use=Math.min(sl,rem);
+        if(sl>0){
+          var ex=px+(cx-px)*use/sl,ey=py+(cy-py)*use/sl,
+              g=ctx.createLinearGradient(px,py,ex,ey);
+          g.addColorStop(0,rgba(a*(1-acc/p.len)));
+          g.addColorStop(1,rgba(a*(1-(acc+use)/p.len)));
+          ctx.strokeStyle=g;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(ex,ey);ctx.stroke();
+        }
+        rem-=use;acc+=use;px=cx;py=cy;i--;
+        if(use<sl)break;
+      }
+      ctx.fillStyle=rgba(Math.min(1,a*1.6));ctx.beginPath();ctx.arc(hx,hy,2.2,0,6.2832);ctx.fill();
+      ctx.fillStyle=rgba(a*0.25);ctx.beginPath();ctx.arc(hx,hy,6,0,6.2832);ctx.fill();
+    }
+    function frame(t){
+      raf=requestAnimationFrame(frame);
+      if(t-last<33)return;
+      var dt=Math.min(0.1,(t-last)/1000);last=t;
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<P.length;i++){
+        var p=P[i];p.age+=dt;
+        if(p.age<0)continue;
+        if(p.age>p.life||p.x<-G||p.x>W+G||p.y<-G||p.y>H+G){P[i]=spawn(false);continue}
+        move(p,dt);
+        draw(p,Math.max(0,Math.min(1,p.age/0.8,(p.life-p.age)/1.2)));
+      }
+    }
+    function startBg(){
+      if(running||!motionOn()||document.hidden)return;
+      running=true;last=0;raf=requestAnimationFrame(frame);
+    }
+    function stopBg(clear){
+      running=false;cancelAnimationFrame(raf);
+      if(clear)ctx.clearRect(0,0,W,H);
+    }
+    readColors();size();
+    themeCbs.push(readColors);
+    motionCbs.push(function(on){if(on)startBg();else stopBg(true)});
+    window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(size,150)});
+    document.addEventListener('visibilitychange',function(){if(document.hidden)stopBg(false);else startBg()});
+    startBg();
   }
 })();
 """
@@ -552,15 +826,22 @@ def build(cv):
 </script>
 </head>
 <body>
+<canvas id="bg" aria-hidden="true"></canvas>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="#about"><b>huda</b>@whoami:~$</a>
     <nav class="links" aria-label="Sections">{nav_links}</nav>
+    <div class="tools">
+    <button class="themebtn" id="motion-toggle" type="button" aria-label="Pause animations" title="Pause or play animations" hidden>
+      <svg class="m-pause" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS['pause']}</svg>
+      <svg class="m-play" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS['play']}</svg>
+    </button>
     <button class="themebtn" id="theme-toggle" type="button" aria-label="Switch theme" hidden>
       <svg class="t-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS['sun']}</svg>
       <svg class="t-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS['moon']}</svg>
     </button>
+    </div>
   </div>
 </header>
 <main id="main">
